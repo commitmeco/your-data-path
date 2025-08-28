@@ -8,71 +8,66 @@ All colors MUST be HSL for proper theming.
 
 @layer base {
   :root {
-    /* CMCD Brand Colors */
-    --background: 197 45% 97%; /* #EDF6F9 - very light teal */
-    --foreground: 183 100% 21%; /* #006D77 - dark teal */
+    /* CMCD Brand Colors - Dark Theme with Bright Turquoise */
+    --background: 0 0% 7%; /* #121212 - dark background like CMCD site */
+    --foreground: 0 0% 95%; /* #F2F2F2 - light text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 183 100% 21%;
+    --card: 0 0% 10%; /* #1A1A1A - dark card */
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 183 100% 21%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 183 100% 21%; /* #006D77 - CMCD dark teal */
-    --primary-foreground: 0 0% 100%;
+    --primary: 174 72% 56%; /* #4ECDC4 - bright turquoise like CMCD */
+    --primary-foreground: 0 0% 7%;
 
-    --secondary: 177 25% 64%; /* #83C5BE - CMCD light teal */
-    --secondary-foreground: 183 100% 21%;
+    --secondary: 0 0% 15%; /* #262626 - dark secondary */
+    --secondary-foreground: 174 72% 56%;
 
-    --muted: 197 45% 92%;
-    --muted-foreground: 183 25% 45%;
+    --muted: 0 0% 20%; /* #333333 - dark muted */
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 177 25% 64%;
-    --accent-foreground: 183 100% 21%;
+    --accent: 195 60% 50%; /* #4A90E2 - blue accent for organic shapes */
+    --accent-foreground: 0 0% 95%;
 
-    /* Scoring Colors */
-    --success: 142 71% 45%; /* Green for strong areas */
-    --success-foreground: 0 0% 100%;
+    /* Scoring Colors - Bright for dark theme */
+    --success: 142 69% 58%; /* Bright green */
+    --success-foreground: 0 0% 7%;
     
-    --warning: 45 93% 47%; /* Orange for moderate areas */
-    --warning-foreground: 0 0% 100%;
+    --warning: 38 92% 65%; /* Bright orange */
+    --warning-foreground: 0 0% 7%;
     
-    --destructive: 0 84% 60%; /* Red for needs focus */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62% 60%; /* Bright red */
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 197 25% 87%;
-    --input: 197 25% 87%;
-    --ring: 177 25% 64%;
+    --border: 0 0% 20%; /* Dark borders */
+    --input: 0 0% 15%; /* Dark inputs */
+    --ring: 174 72% 56%; /* Turquoise focus ring */
 
-    --radius: 0.75rem;
+    --radius: 1rem; /* More rounded like CMCD */
 
-    /* Custom Design Tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(183 100% 21%), hsl(177 25% 64%));
-    --gradient-subtle: linear-gradient(180deg, hsl(197 45% 97%), hsl(197 25% 92%));
-    --shadow-elegant: 0 10px 30px -10px hsl(183 100% 21% / 0.15);
-    --shadow-card: 0 4px 20px -4px hsl(183 100% 21% / 0.1);
+    /* CMCD Organic Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(174 72% 56%), hsl(195 60% 50%));
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 7%), hsl(0 0% 10%));
+    --gradient-organic: radial-gradient(ellipse at top right, hsl(174 72% 56% / 0.3) 0%, hsl(195 60% 50% / 0.2) 40%, transparent 70%);
+    
+    /* CMCD Shadows with Turquoise Glow */
+    --shadow-elegant: 0 20px 60px -15px hsl(0 0% 0% / 0.6), 0 0 40px hsl(174 72% 56% / 0.15);
+    --shadow-card: 0 8px 32px hsl(0 0% 0% / 0.4), 0 0 20px hsl(174 72% 56% / 0.1);
+    --shadow-glow: 0 0 60px hsl(174 72% 56% / 0.3);
     
     /* Animation Tokens */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 174 72% 56%;
+    --sidebar-primary-foreground: 0 0% 7%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 174 72% 56%;
   }
 
   .dark {
@@ -134,12 +129,20 @@ All colors MUST be HSL for proper theming.
     background: var(--gradient-subtle);
   }
   
+  .gradient-organic {
+    background: var(--gradient-organic);
+  }
+  
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
   }
   
   .shadow-card {
     box-shadow: var(--shadow-card);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
   }
   
   .transition-smooth {
@@ -161,5 +164,20 @@ All colors MUST be HSL for proper theming.
   
   .score-needs-focus {
     @apply bg-destructive text-destructive-foreground;
+  }
+
+  /* CMCD Organic Shapes */
+  .organic-blob {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    background: var(--gradient-primary);
+    opacity: 0.1;
+    filter: blur(40px);
+  }
+  
+  .organic-blob-alt {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    background: linear-gradient(45deg, hsl(174 72% 56% / 0.2), hsl(195 60% 50% / 0.15));
+    opacity: 0.8;
+    filter: blur(60px);
   }
 }

@@ -210,17 +210,28 @@ export const DataAuditQuiz = () => {
   // Filter Screen
   if (showFilter) {
     return (
-      <div className="min-h-screen gradient-subtle flex items-center justify-center p-4">
-        <div className="w-full max-w-2xl">
-          <Card className="shadow-card border-0">
+      <div className="min-h-screen gradient-subtle flex items-center justify-center p-4 relative overflow-hidden">
+        {/* Organic Background Elements */}
+        <div className="absolute top-20 right-20 w-96 h-96 organic-blob animate-pulse" />
+        <div className="absolute bottom-20 left-20 w-72 h-72 organic-blob-alt animate-pulse" 
+             style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/3 w-48 h-48 organic-blob opacity-50" 
+             style={{ animationDelay: '4s' }} />
+        
+        <div className="w-full max-w-2xl relative z-10">
+          <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
             <div className="p-8">
               {/* Header */}
               <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold text-primary mb-2">
-                  CMCD Data Audit
+                <div className="flex items-center justify-center mb-4">
+                  <div className="w-3 h-3 rounded-full bg-primary mr-3" />
+                  <span className="text-primary font-medium text-lg tracking-wider">COMMIT ME CO DESIGN</span>
+                </div>
+                <h1 className="text-4xl font-bold text-foreground mb-3 leading-tight">
+                  YOUR DATA HAS A BRAIN
                 </h1>
-                <p className="text-muted-foreground">
-                  Your data already knows the way. Decode it here.
+                <p className="text-muted-foreground text-lg">
+                  We decode human behavior. Let's see what your data is telling you.
                 </p>
               </div>
 
@@ -228,35 +239,35 @@ export const DataAuditQuiz = () => {
               <div className={`transition-smooth ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
                 <div className="space-y-6">
                   <div className="text-center space-y-3">
-                    <h2 className="text-xl font-semibold text-foreground">
+                    <h2 className="text-2xl font-semibold text-foreground">
                       First, let's understand your organization
                     </h2>
                     <p className="text-muted-foreground">
-                      This helps us tailor our insights to your specific needs and challenges.
+                      This helps us tailor our behavioral insights to your specific audience and goals.
                     </p>
                   </div>
 
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     <Card 
-                      className="p-6 cursor-pointer transition-smooth border-2 hover:border-primary/50 hover:shadow-md hover:bg-muted/50"
+                      className="p-6 cursor-pointer transition-smooth border-2 border-border hover:border-primary/50 hover:shadow-glow hover:bg-card/60 backdrop-blur-sm"
                       onClick={() => handleUserTypeSelection('small-business')}
                     >
                       <div className="text-center space-y-2">
-                        <h3 className="text-lg font-semibold text-foreground">Small Business Owner</h3>
-                        <p className="text-sm text-muted-foreground">
-                          You run or manage a small business (under 100 employees)
+                        <h3 className="text-xl font-semibold text-foreground">Small Business Owner</h3>
+                        <p className="text-muted-foreground">
+                          You run or manage a small business focused on customer acquisition and growth
                         </p>
                       </div>
                     </Card>
 
                     <Card 
-                      className="p-6 cursor-pointer transition-smooth border-2 hover:border-primary/50 hover:shadow-md hover:bg-muted/50"
+                      className="p-6 cursor-pointer transition-smooth border-2 border-border hover:border-primary/50 hover:shadow-glow hover:bg-card/60 backdrop-blur-sm"
                       onClick={() => handleUserTypeSelection('nonprofit')}
                     >
                       <div className="text-center space-y-2">
-                        <h3 className="text-lg font-semibold text-foreground">Nonprofit Leader</h3>
-                        <p className="text-sm text-muted-foreground">
-                          You're an Executive Director or lead a nonprofit organization
+                        <h3 className="text-xl font-semibold text-foreground">Nonprofit Leader</h3>
+                        <p className="text-muted-foreground">
+                          You're an Executive Director or lead a nonprofit focused on donor engagement and impact
                         </p>
                       </div>
                     </Card>
@@ -271,17 +282,26 @@ export const DataAuditQuiz = () => {
   }
 
   return (
-    <div className="min-h-screen gradient-subtle flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl">
-        <Card className="shadow-card border-0">
+    <div className="min-h-screen gradient-subtle flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Organic Background Elements */}
+      <div className="absolute top-10 right-10 w-80 h-80 organic-blob animate-pulse opacity-30" />
+      <div className="absolute bottom-10 left-10 w-64 h-64 organic-blob-alt animate-pulse opacity-20" 
+           style={{ animationDelay: '3s' }} />
+      
+      <div className="w-full max-w-2xl relative z-10">
+        <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
           <div className="p-8">
             {/* Header */}
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-primary mb-2">
-                CMCD Data Audit
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-3 h-3 rounded-full bg-primary mr-3" />
+                <span className="text-primary font-medium text-lg tracking-wider">CMCD DATA AUDIT</span>
+              </div>
+              <h1 className="text-3xl font-bold text-foreground mb-2">
+                YOUR DATA HAS A BRAIN
               </h1>
               <p className="text-muted-foreground">
-                Your data already knows the way. Decode it here.
+                We decode human behavior. Let's see what your data is telling you.
               </p>
             </div>
 
