@@ -232,26 +232,81 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
                   size="lg" 
                   onClick={() => {
                     const subject = encodeURIComponent(`My CMCD Behavioral Audit Results - ${Math.round(overallPercentage)}% Score`);
-                    const body = encodeURIComponent(`Hi there,
-
-I just completed the CMCD Behavioral Audit and wanted to share my results:
-
-Overall Score: ${Math.round(overallPercentage)}% (${totalScore}/${maxTotalScore} points)
-
-Category Breakdown:
-${categoryScores.map(cat => `• ${cat.category}: ${Math.round(cat.percentage)}% (${cat.level})`).join('\n')}
-
-Priority Areas for Improvement:
-${categoryScores.filter(c => c.level === 'needs-focus').map(cat => `• ${cat.category}`).join('\n')}
-
-My Strengths:
-${categoryScores.filter(c => c.level === 'strong').map(cat => `• ${cat.category}`).join('\n')}
-
-This assessment shows specific opportunities to unlock ${conversionTerm} and eliminate barriers keeping ${audienceTerm} from supporting ${userType === 'nonprofit' ? 'our mission' : 'our business'}.
-
-Ready to take the next step with a full CMCD audit: https://www.commitmeco.design/signal-sync
-
-Best regards`);
+                    const htmlBody = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Your CMCD Behavioral Audit Results</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #0891b2, #06b6d4); color: white; padding: 30px; text-align: center; border-radius: 12px 12px 0 0; }
+        .score { font-size: 48px; font-weight: bold; margin: 10px 0; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
+        .content { background: #f8fafc; padding: 30px; border-radius: 0 0 12px 12px; }
+        .category { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #0891b2; }
+        .category-title { font-weight: 600; font-size: 18px; margin-bottom: 8px; }
+        .score-badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 14px; }
+        .strong { background: #dcfce7; color: #166534; }
+        .moderate { background: #fef3c7; color: #92400e; }
+        .needs-focus { background: #fee2e2; color: #991b1b; }
+        .cta-button { display: inline-block; background: linear-gradient(135deg, #0891b2, #06b6d4); color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: 600; margin: 20px 0; box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3); }
+        .footer { text-align: center; margin-top: 30px; color: #64748b; font-size: 14px; }
+        .logo { color: #0891b2; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Your CMCD Behavioral Audit Results</h1>
+        <div class="score">${Math.round(overallPercentage)}%</div>
+        <p>Overall Score: ${totalScore} out of ${maxTotalScore} points</p>
+    </div>
+    
+    <div class="content">
+        <p><strong>Hello!</strong></p>
+        <p>You just completed the CMCD Behavioral Audit. Your assessment reveals specific opportunities to unlock ${conversionTerm} and eliminate barriers keeping ${audienceTerm} from supporting ${userType === 'nonprofit' ? 'your mission' : 'your business'}.</p>
+        
+        <h2>📊 Category Breakdown</h2>
+        ${categoryScores.map(cat => `
+        <div class="category">
+            <div class="category-title">${cat.category}</div>
+            <span class="score-badge ${cat.level === 'strong' ? 'strong' : cat.level === 'moderate' ? 'moderate' : 'needs-focus'}">${Math.round(cat.percentage)}% - ${cat.level.replace('-', ' ').toUpperCase()}</span>
+            <p style="margin-top: 10px; color: #64748b;">${
+              cat.level === 'strong' ? 'Your strength here is driving results. Consider sharing this success with other areas.' :
+              cat.level === 'moderate' ? 'Good foundation with room for optimization. Small improvements here can yield significant returns.' :
+              'High-impact opportunity. Addressing this area should be a priority for immediate results.'
+            }</p>
+        </div>
+        `).join('')}
+        
+        ${categoryScores.filter(c => c.level === 'needs-focus').length > 0 ? `
+        <h2>🎯 Priority Areas for Improvement</h2>
+        <ul>
+        ${categoryScores.filter(c => c.level === 'needs-focus').map(cat => `<li><strong>${cat.category}</strong> (${Math.round(cat.percentage)}%)</li>`).join('')}
+        </ul>
+        ` : ''}
+        
+        ${categoryScores.filter(c => c.level === 'strong').length > 0 ? `
+        <h2>✅ Your Strengths</h2>
+        <ul>
+        ${categoryScores.filter(c => c.level === 'strong').map(cat => `<li><strong>${cat.category}</strong> (${Math.round(cat.percentage)}%)</li>`).join('')}
+        </ul>
+        ` : ''}
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <p><strong>Ready to unlock your ${userType === 'nonprofit' ? 'hidden funding' : 'hidden revenue'}?</strong></p>
+            <p>This behavioral assessment shows you what's possible. A comprehensive CMCD audit reveals exactly how to implement these improvements and measures the ${userType === 'nonprofit' ? 'mission impact' : 'business growth'} of each change.</p>
+            <a href="https://www.commitmeco.design/signal-sync" class="cta-button">Get Your Full CMCD Audit</a>
+        </div>
+        
+        <div class="footer">
+            <p>Powered by <span class="logo">Commit Me Co Design</span><br>
+            Behavioral UX Research & Data-Driven Design</p>
+            <p><a href="https://www.commitmeco.design" style="color: #0891b2;">www.commitmeco.design</a></p>
+        </div>
+    </div>
+</body>
+</html>`;
+                    const body = encodeURIComponent(htmlBody);
                     window.open(`mailto:?subject=${subject}&body=${body}`, '_self');
                   }} 
                   className="border-primary/50 hover:bg-primary/10"
