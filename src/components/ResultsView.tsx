@@ -8,6 +8,7 @@ interface ResultsViewProps {
   answers: Answer[];
   questions: Question[];
   onRestart: () => void;
+  userType?: 'small-business' | 'nonprofit' | null;
 }
 
 interface CategoryScore {
@@ -19,7 +20,7 @@ interface CategoryScore {
   questions: number;
 }
 
-export const ResultsView = ({ answers, questions, onRestart }: ResultsViewProps) => {
+export const ResultsView = ({ answers, questions, onRestart, userType }: ResultsViewProps) => {
   // Calculate scores by category
   const categoryScores: CategoryScore[] = (() => {
     const categories = Array.from(new Set(questions.map(q => q.category)));

@@ -3,6 +3,7 @@ import { QuestionCard } from "./QuestionCard";
 import { ProgressBar } from "./ProgressBar";
 import { ResultsView } from "./ResultsView";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export interface Question {
   id: number;
@@ -123,10 +124,21 @@ const questions: Question[] = [
 ];
 
 export const DataAuditQuiz = () => {
+  const [userType, setUserType] = useState<'small-business' | 'nonprofit' | null>(null);
+  const [showFilter, setShowFilter] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const handleUserTypeSelection = (type: 'small-business' | 'nonprofit') => {
+    setUserType(type);
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setShowFilter(false);
+      setIsTransitioning(false);
+    }, 300);
+  };
 
   const handleAnswer = (value: number) => {
     const newAnswer: Answer = {
@@ -162,6 +174,8 @@ export const DataAuditQuiz = () => {
   };
 
   const handleRestart = () => {
+    setUserType(null);
+    setShowFilter(true);
     setCurrentQuestion(0);
     setAnswers([]);
     setShowResults(false);
@@ -169,7 +183,70 @@ export const DataAuditQuiz = () => {
   };
 
   if (showResults) {
-    return <ResultsView answers={answers} questions={questions} onRestart={handleRestart} />;
+    return <ResultsView answers={answers} questions={questions} onRestart={handleRestart} userType={userType} />;
+  }
+
+  // Filter Screen
+  if (showFilter) {
+    return (
+      <div className="min-h-screen gradient-subtle flex items-center justify-center p-4">
+        <div className="w-full max-w-2xl">
+          <Card className="shadow-card border-0">
+            <div className="p-8">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <h1 className="text-3xl font-bold text-primary mb-2">
+                  CMCD Data Audit
+                </h1>
+                <p className="text-muted-foreground">
+                  Your data already knows the way. Decode it here.
+                </p>
+              </div>
+
+              {/* Filter Question */}
+              <div className={`transition-smooth ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+                <div className="space-y-6">
+                  <div className="text-center space-y-3">
+                    <h2 className="text-xl font-semibold text-foreground">
+                      First, let's understand your organization
+                    </h2>
+                    <p className="text-muted-foreground">
+                      This helps us tailor our insights to your specific needs and challenges.
+                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    <Card 
+                      className="p-6 cursor-pointer transition-smooth border-2 hover:border-primary/50 hover:shadow-md hover:bg-muted/50"
+                      onClick={() => handleUserTypeSelection('small-business')}
+                    >
+                      <div className="text-center space-y-2">
+                        <h3 className="text-lg font-semibold text-foreground">Small Business Owner</h3>
+                        <p className="text-sm text-muted-foreground">
+                          You run or manage a small business (under 100 employees)
+                        </p>
+                      </div>
+                    </Card>
+
+                    <Card 
+                      className="p-6 cursor-pointer transition-smooth border-2 hover:border-primary/50 hover:shadow-md hover:bg-muted/50"
+                      onClick={() => handleUserTypeSelection('nonprofit')}
+                    >
+                      <div className="text-center space-y-2">
+                        <h3 className="text-lg font-semibold text-foreground">Nonprofit Leader</h3>
+                        <p className="text-sm text-muted-foreground">
+                          You're an Executive Director or lead a nonprofit organization
+                        </p>
+                      </div>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+    );
   }
 
   return (
