@@ -220,10 +220,48 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow transition-smooth">
+                <Button 
+                  size="lg" 
+                  className="gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow transition-smooth"
+                  onClick={() => window.open('https://www.commitmeco.design/signal-sync', '_blank')}
+                >
                   Get Your Full CMCD Audit
                 </Button>
-                <Button variant="outline" size="lg" onClick={onRestart} className="border-primary/50 hover:bg-primary/10">
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  onClick={() => {
+                    const subject = encodeURIComponent(`My CMCD Behavioral Audit Results - ${Math.round(overallPercentage)}% Score`);
+                    const body = encodeURIComponent(`Hi there,
+
+I just completed the CMCD Behavioral Audit and wanted to share my results:
+
+Overall Score: ${Math.round(overallPercentage)}% (${totalScore}/${maxTotalScore} points)
+
+Category Breakdown:
+${categoryScores.map(cat => `• ${cat.category}: ${Math.round(cat.percentage)}% (${cat.level})`).join('\n')}
+
+Priority Areas for Improvement:
+${categoryScores.filter(c => c.level === 'needs-focus').map(cat => `• ${cat.category}`).join('\n')}
+
+My Strengths:
+${categoryScores.filter(c => c.level === 'strong').map(cat => `• ${cat.category}`).join('\n')}
+
+This assessment shows specific opportunities to unlock ${conversionTerm} and eliminate barriers keeping ${audienceTerm} from supporting ${userType === 'nonprofit' ? 'our mission' : 'our business'}.
+
+Ready to take the next step with a full CMCD audit: https://www.commitmeco.design/signal-sync
+
+Best regards`);
+                    window.open(`mailto:?subject=${subject}&body=${body}`, '_self');
+                  }} 
+                  className="border-primary/50 hover:bg-primary/10"
+                >
+                  Email Results to Myself
+                </Button>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
+                <Button variant="ghost" size="lg" onClick={onRestart} className="hover:bg-primary/10">
                   <RotateCcw className="h-4 w-4 mr-2" />
                   Retake Assessment
                 </Button>
@@ -234,7 +272,16 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
 
         {/* Footer */}
         <div className="text-center text-sm text-muted-foreground">
-          <p>Powered by <span className="text-primary font-medium">Commit Me Co Design</span> • Behavioral UX Research & Data-Driven Design</p>
+          <p>
+            Powered by{' '}
+            <button
+              onClick={() => window.open('https://www.commitmeco.design', '_blank')}
+              className="text-primary font-medium hover:text-primary/80 transition-colors underline-offset-4 hover:underline cursor-pointer"
+            >
+              Commit Me Co Design
+            </button>
+            {' '}• Behavioral UX Research & Data-Driven Design
+          </p>
         </div>
       </div>
     </div>
