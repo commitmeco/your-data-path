@@ -2,41 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* CMCD Design System - Research-focused aesthetic with behavioral UX insights
+All colors MUST be HSL for proper theming.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* CMCD Brand Colors */
+    --background: 197 45% 97%; /* #EDF6F9 - very light teal */
+    --foreground: 183 100% 21%; /* #006D77 - dark teal */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 183 100% 21%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 183 100% 21%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 183 100% 21%; /* #006D77 - CMCD dark teal */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 177 25% 64%; /* #83C5BE - CMCD light teal */
+    --secondary-foreground: 183 100% 21%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 197 45% 92%;
+    --muted-foreground: 183 25% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 177 25% 64%;
+    --accent-foreground: 183 100% 21%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Scoring Colors */
+    --success: 142 71% 45%; /* Green for strong areas */
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 45 93% 47%; /* Orange for moderate areas */
+    --warning-foreground: 0 0% 100%;
+    
+    --destructive: 0 84% 60%; /* Red for needs focus */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 197 25% 87%;
+    --input: 197 25% 87%;
+    --ring: 177 25% 64%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Custom Design Tokens */
+    --gradient-primary: linear-gradient(135deg, hsl(183 100% 21%), hsl(177 25% 64%));
+    --gradient-subtle: linear-gradient(180deg, hsl(197 45% 97%), hsl(197 25% 92%));
+    --shadow-elegant: 0 10px 30px -10px hsl(183 100% 21% / 0.15);
+    --shadow-card: 0 4px 20px -4px hsl(183 100% 21% / 0.1);
+    
+    /* Animation Tokens */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +121,45 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* CMCD Custom Utilities */
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+  
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+
+  /* Score-based styling */
+  .score-strong {
+    @apply bg-success text-success-foreground;
+  }
+  
+  .score-moderate {
+    @apply bg-warning text-warning-foreground;
+  }
+  
+  .score-needs-focus {
+    @apply bg-destructive text-destructive-foreground;
   }
 }
