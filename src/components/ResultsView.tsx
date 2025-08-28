@@ -21,6 +21,12 @@ interface CategoryScore {
 }
 
 export const ResultsView = ({ answers, questions, onRestart, userType }: ResultsViewProps) => {
+  // Get contextual terms based on user type
+  const audienceTerm = userType === 'nonprofit' ? 'donors' : 'customers';
+  const conversionTerm = userType === 'nonprofit' ? 'donations' : 'sales';
+  const revenueTerms = userType === 'nonprofit' 
+    ? { revenue: 'Hidden Funding', impact: 'Mission Impact' }
+    : { revenue: 'Hidden Revenue', impact: 'Business Growth' };
   // Calculate scores by category
   const categoryScores: CategoryScore[] = (() => {
     const categories = Array.from(new Set(questions.map(q => q.category)));
@@ -99,7 +105,7 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
               </div>
             </div>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Your assessment reveals specific opportunities to unlock hidden revenue and eliminate conversion barriers. 
+              Your assessment reveals specific opportunities to unlock {conversionTerm} and eliminate barriers keeping {audienceTerm} from supporting you. 
               Here's what your data is telling you:
             </p>
           </div>
@@ -150,7 +156,7 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
         <Card className="shadow-card border-0">
           <div className="p-8">
             <h2 className="text-2xl font-bold text-primary mb-6 text-center">
-              Ready to Unlock Your Hidden Revenue?
+              Ready to Unlock Your {revenueTerms.revenue}?
             </h2>
             
             <div className="grid gap-6 md:grid-cols-2 mb-8">
@@ -196,7 +202,7 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
             <div className="text-center space-y-4">
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 This assessment shows you what's possible. A comprehensive CMCD audit reveals exactly 
-                how to implement these improvements and measures the revenue impact of each change.
+                how to implement these improvements and measures the {revenueTerms.impact.toLowerCase()} impact of each change.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -21,107 +21,125 @@ export interface Answer {
   value: number;
 }
 
-const questions: Question[] = [
-  {
-    id: 1,
-    category: "Behavioral Signals",
-    question: "How often do you analyze user behavior patterns like rage clicks or bounce rates?",
-    description: "Understanding where users get frustrated reveals critical conversion barriers.",
-    options: [
-      { text: "Regularly track and analyze patterns", value: 2 },
-      { text: "Occasionally review basic metrics", value: 1 },
-      { text: "Not currently tracking", value: 0 }
-    ]
-  },
-  {
-    id: 2,
-    category: "Content & Voice",
-    question: "How consistent is your messaging across all customer touchpoints?",
-    description: "Inconsistent voice creates confusion and reduces trust in your brand.",
-    options: [
-      { text: "Very consistent with clear guidelines", value: 2 },
-      { text: "Mostly consistent with some gaps", value: 1 },
-      { text: "Inconsistent or unclear messaging", value: 0 }
-    ]
-  },
-  {
-    id: 3,
-    category: "Conversion Pathways",
-    question: "How clear and optimized are your calls-to-action?",
-    description: "Weak CTAs are conversion killers - even small changes can double results.",
-    options: [
-      { text: "Highly optimized and tested", value: 2 },
-      { text: "Clear but not extensively tested", value: 1 },
-      { text: "Unclear or poorly positioned", value: 0 }
-    ]
-  },
-  {
-    id: 4,
-    category: "User Experience",
-    question: "How well does your site perform on mobile devices?",
-    description: "Poor mobile experience can cost you 60%+ of potential conversions.",
-    options: [
-      { text: "Fully optimized and fast", value: 2 },
-      { text: "Good but could be improved", value: 1 },
-      { text: "Poor mobile performance", value: 0 }
-    ]
-  },
-  {
-    id: 5,
-    category: "Trust & Credibility",
-    question: "How prominent is your social proof and credibility indicators?",
-    description: "Trust signals can increase conversions by 15-30% when properly displayed.",
-    options: [
-      { text: "Strong, visible social proof", value: 2 },
-      { text: "Some testimonials or reviews", value: 1 },
-      { text: "Limited or no social proof", value: 0 }
-    ]
-  },
-  {
-    id: 6,
-    category: "Measurement",
-    question: "How well can you track user journeys from first touch to conversion?",
-    description: "Without proper tracking, you're flying blind on what actually drives results.",
-    options: [
-      { text: "Comprehensive tracking setup", value: 2 },
-      { text: "Basic analytics in place", value: 1 },
-      { text: "Limited or no tracking", value: 0 }
-    ]
-  },
-  {
-    id: 7,
-    category: "Behavioral Signals",
-    question: "Do you know which pages cause users to abandon their journey?",
-    description: "Identifying drop-off points is crucial for fixing conversion leaks.",
-    options: [
-      { text: "Clear understanding of drop-offs", value: 2 },
-      { text: "Some awareness but not detailed", value: 1 },
-      { text: "No clear visibility", value: 0 }
-    ]
-  },
-  {
-    id: 8,
-    category: "Content & Voice",
-    question: "How well does your content address actual user concerns and questions?",
-    description: "User-centered content converts 3x better than feature-focused copy.",
-    options: [
-      { text: "Highly user-focused content", value: 2 },
-      { text: "Mix of user and feature focus", value: 1 },
-      { text: "Mostly feature-focused content", value: 0 }
-    ]
-  },
-  {
-    id: 9,
-    category: "Conversion Pathways",
-    question: "How streamlined is your conversion funnel?",
-    description: "Every extra step or friction point reduces conversions by 10-20%.",
-    options: [
-      { text: "Highly streamlined process", value: 2 },
-      { text: "Reasonably smooth with some steps", value: 1 },
-      { text: "Complex or confusing process", value: 0 }
-    ]
-  }
-];
+const getQuestions = (userType: 'small-business' | 'nonprofit'): Question[] => {
+  const audienceTerm = userType === 'nonprofit' ? 'donors' : 'customers';
+  const conversionTerm = userType === 'nonprofit' ? 'donations' : 'sales';
+  const goalTerm = userType === 'nonprofit' ? 'support your mission' : 'purchase';
+  
+  return [
+    {
+      id: 1,
+      category: "Behavioral Signals",
+      question: `How often do you analyze where ${audienceTerm} get frustrated on your website?`,
+      description: `Understanding where ${audienceTerm} struggle reveals critical barriers to ${conversionTerm}.`,
+      options: [
+        { text: "Regularly track and analyze patterns", value: 2 },
+        { text: "Occasionally review basic metrics", value: 1 },
+        { text: "Not currently tracking", value: 0 }
+      ]
+    },
+    {
+      id: 2,
+      category: "Content & Voice",
+      question: `How consistent is your messaging across all ${audienceTerm} touchpoints?`,
+      description: `Inconsistent messaging creates confusion and reduces ${audienceTerm}' trust in your organization.`,
+      options: [
+        { text: "Very consistent with clear guidelines", value: 2 },
+        { text: "Mostly consistent with some gaps", value: 1 },
+        { text: "Inconsistent or unclear messaging", value: 0 }
+      ]
+    },
+    {
+      id: 3,
+      category: "Conversion Pathways",
+      question: userType === 'nonprofit' 
+        ? "How clear are your donation buttons and giving process?"
+        : "How clear and optimized are your calls-to-action?",
+      description: userType === 'nonprofit'
+        ? "Unclear donation processes can reduce giving by 50%+ - even small improvements make major impact."
+        : "Weak CTAs are conversion killers - even small changes can double results.",
+      options: [
+        { text: "Highly optimized and tested", value: 2 },
+        { text: "Clear but not extensively tested", value: 1 },
+        { text: "Unclear or poorly positioned", value: 0 }
+      ]
+    },
+    {
+      id: 4,
+      category: "User Experience",
+      question: `How well does your website perform on mobile for ${audienceTerm}?`,
+      description: `Poor mobile experience can cost you 60%+ of potential ${conversionTerm}.`,
+      options: [
+        { text: "Fully optimized and fast", value: 2 },
+        { text: "Good but could be improved", value: 1 },
+        { text: "Poor mobile performance", value: 0 }
+      ]
+    },
+    {
+      id: 5,
+      category: "Trust & Credibility",
+      question: userType === 'nonprofit'
+        ? "How prominently do you display impact stories and donor testimonials?"
+        : "How prominent is your social proof and customer reviews?",
+      description: userType === 'nonprofit'
+        ? "Impact stories and testimonials can increase donations by 15-30% when properly showcased."
+        : "Trust signals can increase conversions by 15-30% when properly displayed.",
+      options: [
+        { text: "Strong, visible social proof", value: 2 },
+        { text: "Some testimonials or stories", value: 1 },
+        { text: "Limited or no social proof", value: 0 }
+      ]
+    },
+    {
+      id: 6,
+      category: "Measurement",
+      question: `How well can you track ${audienceTerm} journeys from first visit to ${goalTerm}?`,
+      description: `Without proper tracking, you can't see what actually motivates ${audienceTerm} to ${goalTerm}.`,
+      options: [
+        { text: "Comprehensive tracking setup", value: 2 },
+        { text: "Basic analytics in place", value: 1 },
+        { text: "Limited or no tracking", value: 0 }
+      ]
+    },
+    {
+      id: 7,
+      category: "Behavioral Signals",
+      question: `Do you know which pages cause ${audienceTerm} to leave without acting?`,
+      description: `Identifying where ${audienceTerm} drop off is crucial for fixing ${conversionTerm} leaks.`,
+      options: [
+        { text: "Clear understanding of drop-offs", value: 2 },
+        { text: "Some awareness but not detailed", value: 1 },
+        { text: "No clear visibility", value: 0 }
+      ]
+    },
+    {
+      id: 8,
+      category: "Content & Voice",
+      question: `How well does your content address what ${audienceTerm} actually care about?`,
+      description: userType === 'nonprofit'
+        ? "Mission-focused content that connects emotionally converts 3x better than generic copy."
+        : "Customer-centered content converts 3x better than feature-focused copy.",
+      options: [
+        { text: `Highly ${audienceTerm}-focused content`, value: 2 },
+        { text: `Mix of ${audienceTerm} and organizational focus`, value: 1 },
+        { text: "Mostly organization-focused content", value: 0 }
+      ]
+    },
+    {
+      id: 9,
+      category: "Conversion Pathways",
+      question: userType === 'nonprofit'
+        ? "How streamlined is your donation process?"
+        : "How streamlined is your purchase process?",
+      description: `Every extra step or friction point reduces ${conversionTerm} by 10-20%.`,
+      options: [
+        { text: "Highly streamlined process", value: 2 },
+        { text: "Reasonably smooth with some steps", value: 1 },
+        { text: "Complex or confusing process", value: 0 }
+      ]
+    }
+  ];
+};
 
 export const DataAuditQuiz = () => {
   const [userType, setUserType] = useState<'small-business' | 'nonprofit' | null>(null);
@@ -130,6 +148,9 @@ export const DataAuditQuiz = () => {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Get questions based on user type
+  const questions = userType ? getQuestions(userType) : [];
 
   const handleUserTypeSelection = (type: 'small-business' | 'nonprofit') => {
     setUserType(type);
