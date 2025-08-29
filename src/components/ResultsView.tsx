@@ -201,13 +201,6 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
           <div className="p-6">
             <div className="flex items-center justify-center gap-8 text-center">
               <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-primary" />
-                <div>
-                  <div className="font-semibold text-foreground">5,000+</div>
-                  <div className="text-sm text-muted-foreground">Audits Completed</div>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
                 <Award className="h-5 w-5 text-primary" />
                 <div>
                   <div className="font-semibold text-foreground">94%</div>
