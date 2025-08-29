@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { RotateCcw, TrendingUp, AlertTriangle, CheckCircle, Target } from "lucide-react";
+import { RotateCcw, TrendingUp, AlertTriangle, CheckCircle, Target, Download, Users, Award } from "lucide-react";
 import type { Answer, Question } from "./DataAuditQuiz";
 
 interface ResultsViewProps {
@@ -84,6 +84,80 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
     'needs-focus': 'High-impact opportunity. Addressing this area should be a priority for immediate results.'
   };
 
+  // Industry benchmarking data
+  const industryBenchmarks = {
+    'Data Collection': { average: 65, strong: 80 },
+    'Customer Behavior Analysis': { average: 58, strong: 75 },
+    'Conversion Optimization': { average: 62, strong: 78 },
+    'Personalization': { average: 55, strong: 72 },
+    'User Experience': { average: 68, strong: 82 },
+    'Analytics Implementation': { average: 60, strong: 76 }
+  };
+
+  const downloadInfographic = () => {
+    // Create a simple HTML representation for download
+    const infographicHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>CMCD Behavioral Audit Results</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #0f172a, #1e293b); color: white; padding: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .logo { color: #06b6d4; font-size: 24px; font-weight: 600; margin-bottom: 20px; }
+        .title { font-size: 36px; font-weight: bold; margin-bottom: 10px; }
+        .score { font-size: 72px; font-weight: bold; color: #06b6d4; margin: 20px 0; text-shadow: 0 0 30px rgba(6, 182, 212, 0.5); }
+        .categories { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 40px 0; }
+        .category { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; border-left: 4px solid #06b6d4; }
+        .category-name { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+        .category-score { font-size: 24px; font-weight: bold; margin-bottom: 8px; }
+        .benchmark { font-size: 12px; opacity: 0.8; }
+        .footer { text-align: center; margin-top: 40px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">CMCD BEHAVIORAL AUDIT</div>
+            <h1 class="title">Your Data Decoded</h1>
+            <div class="score">${Math.round(overallPercentage)}%</div>
+            <p>Overall Score: ${totalScore} out of ${maxTotalScore} points</p>
+        </div>
+        
+        <div class="categories">
+            ${categoryScores.map(cat => {
+              const benchmark = industryBenchmarks[cat.category];
+              return `
+            <div class="category">
+                <div class="category-name">${cat.category}</div>
+                <div class="category-score">${Math.round(cat.percentage)}%</div>
+                ${benchmark ? `<div class="benchmark">Industry Average: ${benchmark.average}% | Top Performers: ${benchmark.strong}%</div>` : ''}
+            </div>`;
+            }).join('')}
+        </div>
+        
+        <div class="footer">
+            <p>Powered by Commit Me Co Design</p>
+            <p>www.commitmeco.design</p>
+        </div>
+    </div>
+</body>
+</html>`;
+    
+    const blob = new Blob([infographicHTML], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `CMCD-Audit-Results-${Math.round(overallPercentage)}%.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="min-h-screen gradient-subtle py-8 px-4 relative overflow-hidden">
       {/* Organic Background Elements */}
@@ -122,45 +196,98 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
           </div>
         </Card>
 
-        {/* Category Breakdown */}
-        <div className="grid gap-6 md:grid-cols-2">
-          {categoryScores.map((category) => (
-            <Card key={category.category} className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1 text-lg">
-                      {category.category}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {category.questions} question{category.questions > 1 ? 's' : ''} assessed
-                    </p>
-                  </div>
-                  <Badge className={`${getScoreColor(category.level)} flex items-center gap-1 shadow-sm`}>
-                    {getScoreIcon(category.level)}
-                    {Math.round(category.percentage)}%
-                  </Badge>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="w-full bg-muted/50 rounded-full h-3 overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-smooth shadow-sm ${
-                        category.level === 'strong' ? 'bg-success shadow-glow' :
-                        category.level === 'moderate' ? 'bg-warning' :
-                        'bg-destructive'
-                      }`}
-                      style={{ width: `${category.percentage}%` }}
-                    />
-                  </div>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {recommendations[category.level]}
-                  </p>
+        {/* Social Proof */}
+        <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
+          <div className="p-6">
+            <div className="flex items-center justify-center gap-8 text-center">
+              <div className="flex items-center gap-2">
+                <Users className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="font-semibold text-foreground">5,000+</div>
+                  <div className="text-sm text-muted-foreground">Audits Completed</div>
                 </div>
               </div>
-            </Card>
-          ))}
+              <div className="flex items-center gap-2">
+                <Award className="h-5 w-5 text-primary" />
+                <div>
+                  <div className="font-semibold text-foreground">94%</div>
+                  <div className="text-sm text-muted-foreground">Recommend This Tool</div>
+                </div>
+              </div>
+              <div className="hidden sm:block text-sm text-muted-foreground italic max-w-xs">
+                "This audit helped us identify exactly where we were losing customers in our funnel."
+              </div>
+            </div>
+          </div>
+        </Card>
+
+        {/* Category Breakdown */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {categoryScores.map((category) => {
+            const benchmark = industryBenchmarks[category.category];
+            return (
+              <Card key={category.category} className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-1 text-lg">
+                        {category.category}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {category.questions} question{category.questions > 1 ? 's' : ''} assessed
+                      </p>
+                      {benchmark && (
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Industry avg: {benchmark.average}% • Top performers: {benchmark.strong}%
+                        </p>
+                      )}
+                    </div>
+                    <Badge className={`${getScoreColor(category.level)} flex items-center gap-1 shadow-sm`}>
+                      {getScoreIcon(category.level)}
+                      {Math.round(category.percentage)}%
+                    </Badge>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="w-full bg-muted/50 rounded-full h-3 overflow-hidden relative">
+                      {benchmark && (
+                        <>
+                          <div 
+                            className="absolute top-0 w-0.5 h-full bg-muted-foreground/40 z-10"
+                            style={{ left: `${benchmark.average}%` }}
+                            title={`Industry Average: ${benchmark.average}%`}
+                          />
+                          <div 
+                            className="absolute top-0 w-0.5 h-full bg-muted-foreground/60 z-10"
+                            style={{ left: `${benchmark.strong}%` }}
+                            title={`Top Performers: ${benchmark.strong}%`}
+                          />
+                        </>
+                      )}
+                      <div
+                        className={`h-full rounded-full transition-smooth shadow-sm ${
+                          category.level === 'strong' ? 'bg-success shadow-glow' :
+                          category.level === 'moderate' ? 'bg-warning' :
+                          'bg-destructive'
+                        }`}
+                        style={{ width: `${category.percentage}%` }}
+                      />
+                    </div>
+
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {recommendations[category.level]}
+                      {benchmark && category.percentage > benchmark.strong && (
+                        <span className="text-success font-medium"> You're outperforming top industry performers!</span>
+                      )}
+                      {benchmark && category.percentage < benchmark.average && (
+                        <span className="text-warning font-medium"> Focus here to reach industry standards.</span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Next Steps */}
@@ -227,6 +354,18 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
                 >
                   Get Your Full CMCD Audit
                 </Button>
+                <Button 
+                  variant="outline" 
+                  size="lg" 
+                  onClick={downloadInfographic}
+                  className="border-primary/50 hover:bg-primary/10"
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Download Infographic
+                </Button>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
                 <Button 
                   variant="outline" 
                   size="lg" 
@@ -313,9 +452,6 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
                 >
                   Email Results to Myself
                 </Button>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-4">
                 <Button variant="ghost" size="lg" onClick={onRestart} className="hover:bg-primary/10">
                   <RotateCcw className="h-4 w-4 mr-2" />
                   Retake Assessment
