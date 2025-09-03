@@ -87,9 +87,6 @@ export const QuestionCard = ({ question, onAnswer, onPrevious, selectedValue }: 
                 }`}>
                   {option.text}
                 </p>
-                <div className="text-xs text-muted-foreground mt-1">
-                  {option.value === 2 ? 'Strong behavioral signal' : option.value === 1 ? 'Moderate signal' : 'Needs attention'}
-                </div>
               </div>
               
               {/* Selected indicator */}

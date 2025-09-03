@@ -32,113 +32,111 @@ const getQuestions = (userType: 'small-business' | 'nonprofit'): Question[] => {
   return [
     {
       id: 1,
-      category: "Behavioral Signals",
-      question: `How often do you analyze where ${audienceTerm} get frustrated on your website?`,
-      description: `Understanding where ${audienceTerm} struggle reveals critical barriers to ${conversionTerm}.`,
+      category: "Website Analytics",
+      question: `How often do you analyze user behavior patterns on your website?`,
+      description: `This includes tracking where users engage, navigate, or experience difficulties.`,
       options: [
-        { text: "Regularly track and analyze patterns", value: 2 },
-        { text: "Occasionally review basic metrics", value: 1 },
-        { text: "Not currently tracking", value: 0 }
+        { text: "Weekly or more frequently", value: 2 },
+        { text: "Monthly or occasionally", value: 1 },
+        { text: "Rarely or never", value: 0 }
       ]
     },
     {
       id: 2,
-      category: "Content & Voice",
-      question: `How consistent is your messaging across all ${audienceTerm} touchpoints?`,
-      description: `Inconsistent messaging creates confusion and reduces ${audienceTerm}' trust in your organization.`,
+      category: "Brand Messaging",
+      question: `How would you rate the consistency of your messaging across all platforms?`,
+      description: `Consider your website, social media, email, and print materials.`,
       options: [
-        { text: "Very consistent with clear guidelines", value: 2 },
-        { text: "Mostly consistent with some gaps", value: 1 },
-        { text: "Inconsistent or unclear messaging", value: 0 }
+        { text: "Very consistent", value: 2 },
+        { text: "Mostly consistent", value: 1 },
+        { text: "Inconsistent", value: 0 }
       ]
     },
     {
       id: 3,
-      category: "Conversion Pathways",
+      category: "Call-to-Action",
       question: userType === 'nonprofit' 
-        ? "How clear are your donation buttons and giving process?"
-        : "How clear and optimized are your calls-to-action?",
+        ? "How would you describe your donation process and buttons?"
+        : "How would you describe your call-to-action buttons and processes?",
       description: userType === 'nonprofit'
-        ? "Unclear donation processes can reduce giving by 50%+ - even small improvements make major impact."
-        : "Weak CTAs are conversion killers - even small changes can double results.",
+        ? "Consider the clarity and ease of your giving options."
+        : "Consider the clarity and effectiveness of your action prompts.",
       options: [
-        { text: "Highly optimized and tested", value: 2 },
-        { text: "Clear but not extensively tested", value: 1 },
-        { text: "Unclear or poorly positioned", value: 0 }
+        { text: "Very clear and easy", value: 2 },
+        { text: "Somewhat clear", value: 1 },
+        { text: "Unclear or confusing", value: 0 }
       ]
     },
     {
       id: 4,
-      category: "User Experience",
-      question: `How well does your website perform on mobile for ${audienceTerm}?`,
-      description: `Poor mobile experience can cost you 60%+ of potential ${conversionTerm}.`,
+      category: "Mobile Experience",
+      question: `How does your website perform on mobile devices?`,
+      description: `Consider loading speed, navigation, and overall user experience.`,
       options: [
-        { text: "Fully optimized and fast", value: 2 },
-        { text: "Good but could be improved", value: 1 },
-        { text: "Poor mobile performance", value: 0 }
+        { text: "Excellent performance", value: 2 },
+        { text: "Good performance", value: 1 },
+        { text: "Poor performance", value: 0 }
       ]
     },
     {
       id: 5,
-      category: "Trust & Credibility",
+      category: "Social Proof",
       question: userType === 'nonprofit'
-        ? "How prominently do you display impact stories and donor testimonials?"
-        : "How prominent is your social proof and customer reviews?",
+        ? "How prominently do you feature impact stories and testimonials?"
+        : "How prominently do you feature customer reviews and testimonials?",
       description: userType === 'nonprofit'
-        ? "Impact stories and testimonials can increase donations by 15-30% when properly showcased."
-        : "Trust signals can increase conversions by 15-30% when properly displayed.",
+        ? "Consider the visibility and placement of donor stories and impact examples."
+        : "Consider the visibility and placement of customer feedback and reviews.",
       options: [
-        { text: "Strong, visible social proof", value: 2 },
-        { text: "Some testimonials or stories", value: 1 },
-        { text: "Limited or no social proof", value: 0 }
+        { text: "Very prominent", value: 2 },
+        { text: "Somewhat visible", value: 1 },
+        { text: "Not prominent", value: 0 }
       ]
     },
     {
       id: 6,
-      category: "Measurement",
-      question: `How well can you track ${audienceTerm} journeys from first visit to ${goalTerm}?`,
-      description: `Without proper tracking, you can't see what actually motivates ${audienceTerm} to ${goalTerm}.`,
+      category: "User Journey Tracking",
+      question: `How well do you track user paths from first visit to ${goalTerm}?`,
+      description: `Consider your ability to follow and analyze the complete user journey.`,
       options: [
-        { text: "Comprehensive tracking setup", value: 2 },
-        { text: "Basic analytics in place", value: 1 },
-        { text: "Limited or no tracking", value: 0 }
+        { text: "Comprehensive tracking", value: 2 },
+        { text: "Basic tracking", value: 1 },
+        { text: "Limited tracking", value: 0 }
       ]
     },
     {
       id: 7,
-      category: "Behavioral Signals",
-      question: `Do you know which pages cause ${audienceTerm} to leave without acting?`,
-      description: `Identifying where ${audienceTerm} drop off is crucial for fixing ${conversionTerm} leaks.`,
+      category: "Exit Analysis", 
+      question: `How well do you understand where users leave your website?`,
+      description: `Consider your knowledge of exit points and drop-off patterns.`,
       options: [
-        { text: "Clear understanding of drop-offs", value: 2 },
-        { text: "Some awareness but not detailed", value: 1 },
-        { text: "No clear visibility", value: 0 }
+        { text: "Very clear understanding", value: 2 },
+        { text: "Some understanding", value: 1 },
+        { text: "Limited understanding", value: 0 }
       ]
     },
     {
       id: 8,
-      category: "Content & Voice",
-      question: `How well does your content address what ${audienceTerm} actually care about?`,
-      description: userType === 'nonprofit'
-        ? "Mission-focused content that connects emotionally converts 3x better than generic copy."
-        : "Customer-centered content converts 3x better than feature-focused copy.",
+      category: "Content Focus",
+      question: `How well does your content address your ${audienceTerm}' primary interests?`,
+      description: `Consider whether your content speaks directly to what your audience cares about.`,
       options: [
-        { text: `Highly ${audienceTerm}-focused content`, value: 2 },
-        { text: `Mix of ${audienceTerm} and organizational focus`, value: 1 },
-        { text: "Mostly organization-focused content", value: 0 }
+        { text: `Highly ${audienceTerm}-focused`, value: 2 },
+        { text: `Balanced focus`, value: 1 },
+        { text: "Organization-focused", value: 0 }
       ]
     },
     {
       id: 9,
-      category: "Conversion Pathways",
+      category: "Process Simplicity",
       question: userType === 'nonprofit'
-        ? "How streamlined is your donation process?"
-        : "How streamlined is your purchase process?",
-      description: `Every extra step or friction point reduces ${conversionTerm} by 10-20%.`,
+        ? "How would you rate the simplicity of your donation process?"
+        : "How would you rate the simplicity of your purchase process?",
+      description: `Consider the number of steps and complexity involved.`,
       options: [
-        { text: "Highly streamlined process", value: 2 },
-        { text: "Reasonably smooth with some steps", value: 1 },
-        { text: "Complex or confusing process", value: 0 }
+        { text: "Very simple", value: 2 },
+        { text: "Moderately simple", value: 1 },
+        { text: "Complex", value: 0 }
       ]
     }
   ];
