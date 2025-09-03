@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ChevronLeft } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ChevronLeft, Brain, Lightbulb } from "lucide-react";
 import type { Question } from "./DataAuditQuiz";
 
 interface QuestionCardProps {
@@ -13,62 +14,98 @@ interface QuestionCardProps {
 export const QuestionCard = ({ question, onAnswer, onPrevious, selectedValue }: QuestionCardProps) => {
   return (
     <div className="space-y-6">
-      {/* Category Badge */}
+      {/* Top Navigation - Previous button left, Category badge right */}
       <div className="flex items-center justify-between">
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-secondary text-secondary-foreground">
-          {question.category}
-        </span>
-        {onPrevious && (
+        {onPrevious ? (
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             onClick={onPrevious}
-            className="text-muted-foreground hover:text-foreground"
+            className="border-primary/30 hover:bg-primary/10 text-primary font-inter"
           >
-            <ChevronLeft className="h-4 w-4 mr-1" />
+            <ChevronLeft className="h-4 w-4 mr-2" />
             Previous
           </Button>
+        ) : (
+          <div />
         )}
+        
+        <Badge variant="outline" className="text-xs font-inter border-primary/30 text-primary">
+          {question.category}
+        </Badge>
       </div>
 
-      {/* Question */}
-      <div className="space-y-3">
-        <h2 className="text-xl font-semibold text-foreground leading-relaxed">
-          {question.question}
-        </h2>
-        <p className="text-muted-foreground">
-          {question.description}
-        </p>
-      </div>
+      {/* Enhanced Question Header */}
+      <Card className="p-6 border border-primary/20 bg-gradient-to-r from-primary/5 to-accent/5">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+            <Brain className="h-6 w-6 text-primary" />
+          </div>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 mb-3">
+              <Lightbulb className="h-4 w-4 text-accent animate-pulse" />
+              <span className="text-xs text-accent font-inter font-medium">Behavioral Analysis</span>
+            </div>
+            <h2 className="text-xl font-space-grotesk font-bold text-foreground mb-3 leading-tight">
+              {question.question}
+            </h2>
+            <p className="text-muted-foreground font-inter leading-relaxed">
+              {question.description}
+            </p>
+          </div>
+        </div>
+      </Card>
 
-      {/* Options */}
+      {/* Answer Options - Radio buttons on left */}
       <div className="space-y-3">
-        {question.options.map((option, index) => (
-          <Card 
-            key={index}
-            className={`p-4 cursor-pointer transition-smooth border-2 hover:border-primary/50 hover:shadow-md ${
-              selectedValue === option.value 
-                ? 'border-primary bg-primary/5 shadow-md' 
-                : 'border-border hover:bg-muted/50'
+        {question.options.map((option) => (
+          <Card
+            key={option.value}
+            className={`p-4 cursor-pointer transition-smooth hover:shadow-glow group ${
+              selectedValue === option.value
+                ? 'border-primary bg-primary/10 shadow-glow'
+                : 'border-border hover:border-primary/50 hover:bg-primary/5'
             }`}
             onClick={() => onAnswer(option.value)}
           >
-            <div className="flex items-center justify-between">
-              <span className="text-foreground font-medium">
-                {option.text}
-              </span>
-              <div className={`w-4 h-4 rounded-full border-2 transition-smooth ${
+            <div className="flex items-center gap-4">
+              {/* Radio button on the left */}
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-smooth flex-shrink-0 ${
                 selectedValue === option.value
                   ? 'border-primary bg-primary'
-                  : 'border-muted-foreground'
+                  : 'border-muted-foreground group-hover:border-primary/50'
               }`}>
                 {selectedValue === option.value && (
-                  <div className="w-2 h-2 bg-primary-foreground rounded-full m-0.5" />
+                  <div className="w-3 h-3 rounded-full bg-primary-foreground" />
                 )}
               </div>
+              
+              {/* Option text */}
+              <div className="flex-1">
+                <p className={`font-inter font-medium transition-smooth ${
+                  selectedValue === option.value ? 'text-primary' : 'text-foreground group-hover:text-primary/80'
+                }`}>
+                  {option.text}
+                </p>
+                <div className="text-xs text-muted-foreground mt-1">
+                  {option.value === 2 ? 'Strong behavioral signal' : option.value === 1 ? 'Moderate signal' : 'Needs attention'}
+                </div>
+              </div>
+              
+              {/* Selected indicator */}
+              {selectedValue === option.value && (
+                <div className="w-2 h-2 rounded-full bg-primary animate-pulse flex-shrink-0" />
+              )}
             </div>
           </Card>
         ))}
+      </div>
+
+      {/* Bottom instruction */}
+      <div className="text-center pt-4">
+        <p className="text-xs text-muted-foreground font-inter">
+          Select an option to continue your behavioral analysis
+        </p>
       </div>
     </div>
   );
