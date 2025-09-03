@@ -1,8 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { RotateCcw, TrendingUp, AlertTriangle, CheckCircle, Target, Download, Users, Award } from "lucide-react";
+import { RotateCcw, TrendingUp, AlertTriangle, CheckCircle, Target, Download, Users, Award, Brain, Sparkles, Zap } from "lucide-react";
 import type { Answer, Question } from "./DataAuditQuiz";
+import { CMCDBrandMark } from "./CMCDLogo";
 
 interface ResultsViewProps {
   answers: Answer[];
@@ -309,55 +310,78 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
 
   return (
     <div className="min-h-screen gradient-subtle py-8 px-4 relative overflow-hidden">
-      {/* Organic Background Elements */}
+      {/* Enhanced CMCD Organic Background Elements */}
       <div className="absolute top-20 right-10 w-96 h-96 organic-blob animate-pulse opacity-20" />
       <div className="absolute bottom-32 left-16 w-72 h-72 organic-blob-alt animate-pulse opacity-15" 
            style={{ animationDelay: '3s' }} />
       <div className="absolute top-1/3 right-1/4 w-48 h-48 organic-blob opacity-10" 
            style={{ animationDelay: '6s' }} />
       
+      {/* Floating particles */}
+      <div className="absolute top-1/4 left-1/4 w-4 h-4 rounded-full bg-primary opacity-30 animate-bounce" 
+           style={{ animationDelay: '2s' }} />
+      <div className="absolute bottom-1/3 right-1/3 w-3 h-3 rounded-full bg-accent opacity-40 animate-pulse" 
+           style={{ animationDelay: '4s' }} />
+      <div className="absolute top-2/3 left-1/3 w-2 h-2 rounded-full bg-success opacity-50 animate-bounce" 
+           style={{ animationDelay: '5s' }} />
+      
       <div className="max-w-4xl mx-auto space-y-8 relative z-10">
-        {/* Header */}
+        {/* Enhanced Header */}
         <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
           <div className="p-8 text-center">
-            <div className="flex items-center justify-center mb-4">
-              <div className="w-3 h-3 rounded-full bg-primary mr-3" />
-              <span className="text-primary font-medium text-lg tracking-wider">CMCD BEHAVIORAL AUDIT</span>
+            <div className="flex items-center justify-center mb-6">
+              <CMCDBrandMark />
             </div>
-            <h1 className="text-4xl font-bold text-foreground mb-4">
-              Your Data Decoded
-            </h1>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="text-5xl font-bold text-primary shadow-glow">
-                {Math.round(overallPercentage)}%
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="relative">
+                <Brain className="h-12 w-12 text-primary animate-pulse" />
+                <Sparkles className="h-4 w-4 text-accent absolute -top-1 -right-1" />
               </div>
               <div className="text-left">
-                <p className="text-xl font-medium text-foreground">Overall Score</p>
-                <p className="text-muted-foreground">
-                  {totalScore} out of {maxTotalScore} points
+                <h1 className="text-5xl font-space-grotesk font-bold text-foreground mb-2 leading-tight">
+                  YOUR DATA DECODED
+                </h1>
+                <p className="text-primary font-medium font-inter">Behavioral insights revealed</p>
+              </div>
+            </div>
+            <div className="flex items-center justify-center gap-6 mb-6">
+              <div className="relative">
+                <div className="text-6xl font-space-grotesk font-bold text-primary shadow-glow">
+                  {Math.round(overallPercentage)}%
+                </div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-success animate-ping opacity-75" />
+                <Zap className="absolute -bottom-1 -left-1 h-5 w-5 text-accent animate-pulse" />
+              </div>
+              <div className="text-left">
+                <p className="text-xl font-space-grotesk font-medium text-foreground">Brain Score</p>
+                <p className="text-muted-foreground font-inter">
+                  {totalScore} out of {maxTotalScore} behavioral signals
                 </p>
               </div>
             </div>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg font-inter leading-relaxed">
               Your assessment reveals specific opportunities to unlock {conversionTerm} and eliminate barriers keeping {audienceTerm} from supporting you. 
-              Here's what your behavioral data is telling you:
+              <span className="text-primary font-medium"> Here's what your behavioral data is telling you:</span>
             </p>
           </div>
         </Card>
 
-        {/* Social Proof */}
+        {/* Enhanced Social Proof */}
         <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
           <div className="p-6">
             <div className="flex items-center justify-center gap-8 text-center">
-              <div className="flex items-center gap-2">
-                <Award className="h-5 w-5 text-primary" />
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-success/20 flex items-center justify-center">
+                  <Award className="h-6 w-6 text-success" />
+                </div>
                 <div>
-                  <div className="font-semibold text-foreground">94%</div>
-                  <div className="text-sm text-muted-foreground">Recommend This Tool</div>
+                  <div className="font-space-grotesk font-bold text-foreground text-lg">94%</div>
+                  <div className="text-sm text-muted-foreground font-inter">Recommend This Tool</div>
                 </div>
               </div>
-              <div className="hidden sm:block text-sm text-muted-foreground italic max-w-xs">
-                "This audit helped us identify exactly where we were losing customers in our funnel."
+              <div className="hidden sm:block text-sm text-muted-foreground italic max-w-xs font-inter leading-relaxed">
+                <span className="text-primary">"This audit helped us identify exactly where we were losing customers in our funnel."</span>
+                <div className="text-xs mt-1 opacity-75">- Marketing Director, SaaS Company</div>
               </div>
             </div>
           </div>
@@ -437,23 +461,27 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
           <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
             <div className="p-8">
               <div className="flex items-center justify-center mb-6">
-                <div className="w-3 h-3 rounded-full bg-primary mr-3" />
-                <h2 className="text-3xl font-bold text-foreground">
-                  Your Personalized Action Plan
-                </h2>
+                <CMCDBrandMark />
               </div>
-              
-              <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Based on your specific results, here's your customized roadmap to improve {conversionTerm} and {audienceTerm} engagement:
-              </p>
+              <div className="text-center mb-8">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <Brain className="h-8 w-8 text-primary animate-pulse" />
+                  <h2 className="text-3xl font-space-grotesk font-bold text-foreground">
+                    YOUR BEHAVIORAL ACTION PLAN
+                  </h2>
+                </div>
+                <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto font-inter leading-relaxed">
+                  Based on your specific behavioral patterns, here's your customized roadmap to improve {conversionTerm} and {audienceTerm} engagement:
+                </p>
+              </div>
 
               <div className="space-y-6">
                 {actionPlan.map((action, index) => (
                   <div key={index} className="relative">
-                    <div className="flex items-start gap-4 p-6 bg-muted/20 rounded-xl border border-border/30">
+                    <div className="flex items-start gap-6 p-6 bg-gradient-to-r from-muted/10 to-muted/5 rounded-xl border border-border/30 hover:border-primary/30 transition-smooth">
                       <div className="flex-shrink-0">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                          action.priority === 1 ? 'bg-destructive/20 text-destructive' :
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-space-grotesk font-bold ${
+                          action.priority === 1 ? 'bg-destructive/20 text-destructive shadow-glow' :
                           action.priority === 2 ? 'bg-warning/20 text-warning' :
                           'bg-primary/20 text-primary'
                         }`}>
@@ -462,26 +490,30 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
                       </div>
                       
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-4 mb-3">
-                          <h3 className="font-semibold text-foreground text-lg">
+                        <div className="flex items-start justify-between gap-4 mb-4">
+                          <h3 className="font-space-grotesk font-bold text-foreground text-xl leading-tight">
                             {action.title}
                           </h3>
                           <div className="flex gap-2 flex-shrink-0">
-                            <Badge variant="outline" className="text-xs">
+                            <Badge variant="outline" className={`text-xs font-inter ${
+                              action.impact === 'High' ? 'border-destructive/50 text-destructive' :
+                              action.impact === 'Medium' ? 'border-warning/50 text-warning' :
+                              'border-primary/50 text-primary'
+                            }`}>
                               {action.impact} Impact
                             </Badge>
-                            <Badge variant="outline" className="text-xs">
+                            <Badge variant="outline" className="text-xs font-inter border-muted-foreground/30 text-muted-foreground">
                               {action.timeframe}
                             </Badge>
                           </div>
                         </div>
                         
-                        <p className="text-muted-foreground leading-relaxed mb-3">
+                        <p className="text-muted-foreground leading-relaxed mb-4 font-inter">
                           {action.description}
                         </p>
                         
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                          <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full font-inter">
                             Focus Area: {action.category}
                           </span>
                         </div>
@@ -489,20 +521,24 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
                     </div>
                     
                     {index < actionPlan.length - 1 && (
-                      <div className="absolute left-4 top-16 w-0.5 h-4 bg-border" />
+                      <div className="absolute left-6 top-20 w-0.5 h-6 bg-gradient-to-b from-primary/50 to-transparent" />
                     )}
                   </div>
                 ))}
               </div>
               
-              <div className="mt-8 p-6 bg-primary/5 rounded-xl border border-primary/20">
+              <div className="mt-8 p-6 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl border border-primary/20">
                 <div className="text-center">
-                  <h3 className="font-semibold text-foreground mb-2">
-                    Implementation Tip
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <Brain className="h-5 w-5 text-primary" />
+                    <h3 className="font-space-grotesk font-bold text-foreground">
+                      CMCD Implementation Strategy
+                    </h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground font-inter leading-relaxed">
                     Start with Priority 1 actions first. Complete one before moving to the next. 
-                    Small, consistent improvements compound over time for maximum {revenueTerms.impact.toLowerCase()}.
+                    Small, consistent improvements compound over time for maximum {revenueTerms.impact.toLowerCase()}. 
+                    <span className="text-primary font-medium">Psychology-backed insights drive real results.</span>
                   </p>
                 </div>
               </div>

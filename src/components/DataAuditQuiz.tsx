@@ -5,6 +5,8 @@ import { ResultsView } from "./ResultsView";
 import { EmailCapture } from "./EmailCapture";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { CMCDBrandMark } from "./CMCDLogo";
+import { Brain, Sparkles } from "lucide-react";
 
 export interface Question {
   id: number;
@@ -230,63 +232,83 @@ export const DataAuditQuiz = () => {
   if (showFilter) {
     return (
       <div className="min-h-screen gradient-subtle flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Organic Background Elements */}
+        {/* Enhanced CMCD Organic Background Elements */}
         <div className="absolute top-20 right-20 w-96 h-96 organic-blob animate-pulse" />
         <div className="absolute bottom-20 left-20 w-72 h-72 organic-blob-alt animate-pulse" 
              style={{ animationDelay: '2s' }} />
         <div className="absolute top-1/2 left-1/3 w-48 h-48 organic-blob opacity-50" 
              style={{ animationDelay: '4s' }} />
         
+        {/* Floating particles */}
+        <div className="absolute top-1/4 right-1/4 w-3 h-3 rounded-full bg-primary opacity-40 animate-bounce" 
+             style={{ animationDelay: '1s' }} />
+        <div className="absolute bottom-1/4 left-1/4 w-2 h-2 rounded-full bg-accent opacity-50 animate-pulse" 
+             style={{ animationDelay: '3s' }} />
+        
         <div className="w-full max-w-2xl relative z-10">
           <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
             <div className="p-8">
-              {/* Header */}
+              {/* Enhanced CMCD Header */}
               <div className="text-center mb-8">
-                <div className="flex items-center justify-center mb-4">
-                  <div className="w-3 h-3 rounded-full bg-primary mr-3" />
-                  <span className="text-primary font-medium text-lg tracking-wider">COMMIT ME CO DESIGN</span>
+                <div className="flex items-center justify-center mb-6">
+                  <CMCDBrandMark />
                 </div>
-                <h1 className="text-4xl font-bold text-foreground mb-3 leading-tight">
-                  YOUR DATA HAS A BRAIN
-                </h1>
-                <p className="text-muted-foreground text-lg">
-                  We decode human behavior. Let's see what your data is telling you.
+                <div className="flex items-center justify-center gap-4 mb-6">
+                  <div className="relative">
+                    <Brain className="h-10 w-10 text-primary animate-pulse" />
+                    <Sparkles className="h-3 w-3 text-accent absolute -top-0.5 -right-0.5" />
+                  </div>
+                  <div className="text-left">
+                    <h1 className="text-4xl font-space-grotesk font-bold text-foreground mb-2 leading-tight">
+                      YOUR DATA HAS A BRAIN
+                    </h1>
+                    <p className="text-primary font-medium font-inter">We decode human behavior</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground text-lg font-inter max-w-lg mx-auto">
+                  Let's see what your behavioral data is telling you about your audience engagement.
                 </p>
               </div>
 
-              {/* Filter Question */}
+              {/* Enhanced Filter Question */}
               <div className={`transition-smooth ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
-                <div className="space-y-6">
-                  <div className="text-center space-y-3">
-                    <h2 className="text-2xl font-semibold text-foreground">
+                <div className="space-y-8">
+                  <div className="text-center space-y-4">
+                    <h2 className="text-2xl font-space-grotesk font-semibold text-foreground">
                       First, let's understand your organization
                     </h2>
-                    <p className="text-muted-foreground">
-                      This helps us tailor our behavioral insights to your specific audience and goals.
+                    <p className="text-muted-foreground font-inter">
+                      This helps us tailor our behavioral insights to your specific audience and conversion goals.
                     </p>
                   </div>
 
                   <div className="space-y-4">
                     <Card 
-                      className="p-6 cursor-pointer transition-smooth border-2 border-border hover:border-primary/50 hover:shadow-glow hover:bg-card/60 backdrop-blur-sm"
+                      className="p-6 cursor-pointer transition-smooth border-2 border-border hover:border-primary/50 hover:shadow-glow hover:bg-card/60 backdrop-blur-sm group"
                       onClick={() => handleUserTypeSelection('small-business')}
                     >
-                      <div className="text-center space-y-2">
-                        <h3 className="text-xl font-semibold text-foreground">Small Business Owner</h3>
-                        <p className="text-muted-foreground">
-                          You run or manage a small business focused on customer acquisition and growth
+                      <div className="text-center space-y-3">
+                        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-smooth">
+                          <Brain className="h-8 w-8 text-primary" />
+                        </div>
+                        <h3 className="text-xl font-space-grotesk font-semibold text-foreground">Small Business Owner</h3>
+                        <p className="text-muted-foreground font-inter">
+                          You run or manage a small business focused on customer acquisition and revenue growth
                         </p>
                       </div>
                     </Card>
 
                     <Card 
-                      className="p-6 cursor-pointer transition-smooth border-2 border-border hover:border-primary/50 hover:shadow-glow hover:bg-card/60 backdrop-blur-sm"
+                      className="p-6 cursor-pointer transition-smooth border-2 border-border hover:border-primary/50 hover:shadow-glow hover:bg-card/60 backdrop-blur-sm group"
                       onClick={() => handleUserTypeSelection('nonprofit')}
                     >
-                      <div className="text-center space-y-2">
-                        <h3 className="text-xl font-semibold text-foreground">Nonprofit Leader</h3>
-                        <p className="text-muted-foreground">
-                          You're an Executive Director or lead a nonprofit focused on donor engagement and impact
+                      <div className="text-center space-y-3">
+                        <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-smooth">
+                          <Brain className="h-8 w-8 text-accent" />
+                        </div>
+                        <h3 className="text-xl font-space-grotesk font-semibold text-foreground">Nonprofit Leader</h3>
+                        <p className="text-muted-foreground font-inter">
+                          You're an Executive Director or lead a nonprofit focused on donor engagement and mission impact
                         </p>
                       </div>
                     </Card>
@@ -302,29 +324,37 @@ export const DataAuditQuiz = () => {
 
   return (
     <div className="min-h-screen gradient-subtle flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Organic Background Elements */}
+      {/* Enhanced CMCD Organic Background Elements */}
       <div className="absolute top-10 right-10 w-80 h-80 organic-blob animate-pulse opacity-30" />
       <div className="absolute bottom-10 left-10 w-64 h-64 organic-blob-alt animate-pulse opacity-20" 
            style={{ animationDelay: '3s' }} />
       
+      {/* Floating particles */}
+      <div className="absolute top-1/3 right-1/4 w-3 h-3 rounded-full bg-primary opacity-40 animate-bounce" 
+           style={{ animationDelay: '1s' }} />
+      <div className="absolute bottom-1/4 left-1/3 w-2 h-2 rounded-full bg-accent opacity-50 animate-pulse" 
+           style={{ animationDelay: '2s' }} />
+      
       <div className="w-full max-w-2xl relative z-10">
         <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
           <div className="p-8">
-            {/* Header */}
+            {/* Enhanced CMCD Header */}
             <div className="text-center mb-8">
-              <div className="flex items-center justify-center mb-4">
-                <div className="w-3 h-3 rounded-full bg-primary mr-3" />
-                <span className="text-primary font-medium text-lg tracking-wider">CMCD DATA AUDIT</span>
+              <div className="flex items-center justify-center mb-6">
+                <CMCDBrandMark />
               </div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">
-                YOUR DATA HAS A BRAIN
-              </h1>
-              <p className="text-muted-foreground">
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <Brain className="h-8 w-8 text-primary animate-pulse" />
+                <h1 className="text-3xl font-space-grotesk font-bold text-foreground">
+                  YOUR DATA HAS A BRAIN
+                </h1>
+              </div>
+              <p className="text-muted-foreground font-inter">
                 We decode human behavior. Let's see what your data is telling you.
               </p>
             </div>
 
-            {/* Progress */}
+            {/* Enhanced Progress */}
             <ProgressBar 
               current={currentQuestion + 1} 
               total={questions.length} 
@@ -341,9 +371,15 @@ export const DataAuditQuiz = () => {
               />
             </div>
 
-            {/* Footer */}
-            <div className="text-center mt-8 text-sm text-muted-foreground">
-              Question {currentQuestion + 1} of {questions.length}
+            {/* Enhanced Footer */}
+            <div className="text-center mt-8">
+              <div className="text-sm text-muted-foreground font-inter mb-2">
+                Question {currentQuestion + 1} of {questions.length}
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-primary opacity-60" />
+                <span className="text-xs text-muted-foreground font-inter">Psychology-backed insights</span>
+              </div>
             </div>
           </div>
         </Card>

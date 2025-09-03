@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { CheckCircle, Mail, Download } from "lucide-react";
+import { CheckCircle, Mail, Download, Brain, Sparkles } from "lucide-react";
+import { CMCDBrandMark } from "./CMCDLogo";
 
 interface EmailCaptureProps {
   overallScore: number;
@@ -31,91 +32,142 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
 
   return (
     <div className="min-h-screen gradient-subtle flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Organic Background Elements */}
+      {/* Enhanced CMCD Organic Background Elements */}
       <div className="absolute top-20 right-10 w-96 h-96 organic-blob animate-pulse opacity-20" />
       <div className="absolute bottom-32 left-16 w-72 h-72 organic-blob-alt animate-pulse opacity-15" 
            style={{ animationDelay: '3s' }} />
+      <div className="absolute top-1/3 left-1/4 w-48 h-48 organic-blob opacity-10" 
+           style={{ animationDelay: '6s' }} />
+      
+      {/* Floating particles */}
+      <div className="absolute top-1/4 right-1/3 w-4 h-4 rounded-full bg-primary opacity-30 animate-bounce" 
+           style={{ animationDelay: '2s' }} />
+      <div className="absolute bottom-1/3 left-1/3 w-3 h-3 rounded-full bg-accent opacity-40 animate-pulse" 
+           style={{ animationDelay: '4s' }} />
       
       <div className="w-full max-w-2xl relative z-10">
         <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
           <div className="p-8 text-center">
-            {/* Header */}
+            {/* CMCD Header */}
             <div className="flex items-center justify-center mb-6">
-              <div className="w-3 h-3 rounded-full bg-primary mr-3" />
-              <span className="text-primary font-medium text-lg tracking-wider">CMCD BEHAVIORAL AUDIT</span>
+              <CMCDBrandMark />
             </div>
 
-            {/* Score Preview */}
+            {/* Enhanced Score Preview */}
             <div className="mb-8">
-              <div className="flex items-center justify-center gap-4 mb-4">
-                <CheckCircle className="h-8 w-8 text-success" />
-                <h1 className="text-3xl font-bold text-foreground">
-                  Analysis Complete!
-                </h1>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="relative">
+                  <Brain className="h-12 w-12 text-primary animate-pulse" />
+                  <Sparkles className="h-4 w-4 text-accent absolute -top-1 -right-1" />
+                </div>
+                <div>
+                  <h1 className="text-4xl font-space-grotesk font-bold text-foreground">
+                    ANALYSIS COMPLETE
+                  </h1>
+                  <p className="text-primary font-medium">Your brain data is ready</p>
+                </div>
               </div>
-              <div className="text-5xl font-bold text-primary shadow-glow mb-4">
+              <div className="text-6xl font-space-grotesk font-bold text-primary shadow-glow mb-4 relative">
                 {Math.round(overallScore)}%
+                <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-success animate-ping" />
               </div>
-              <p className="text-muted-foreground text-lg max-w-lg mx-auto">
-                Your assessment reveals specific opportunities to unlock {conversionTerm} and eliminate barriers keeping {audienceTerm} from supporting you.
+              <p className="text-muted-foreground text-lg max-w-lg mx-auto font-inter">
+                Your behavioral assessment reveals specific opportunities to unlock {conversionTerm} and eliminate barriers keeping {audienceTerm} from supporting you.
               </p>
             </div>
 
-            {/* Value Proposition */}
+            {/* Enhanced Value Proposition */}
             <div className="mb-8 space-y-4">
-              <h2 className="text-2xl font-semibold text-foreground mb-4">
-                Get Your Complete Results
+              <h2 className="text-3xl font-space-grotesk font-bold text-foreground mb-6">
+                YOUR DATA HAS A BRAIN
               </h2>
+              <p className="text-muted-foreground mb-6 font-inter">
+                <span className="text-primary font-medium">We decode human behavior</span> with research, design, and a touch of rebellion
+              </p>
               <div className="grid gap-4 text-left">
-                <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
-                  <Download className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-4 p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl border border-primary/20">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Download className="h-6 w-6 text-primary" />
+                  </div>
                   <div>
-                    <div className="font-semibold text-foreground">Personalized Action Plan</div>
-                    <div className="text-sm text-muted-foreground">Step-by-step recommendations prioritized for your specific results</div>
+                    <div className="font-space-grotesk font-bold text-foreground text-lg mb-1">Personalized Action Plan</div>
+                    <div className="text-sm text-muted-foreground font-inter">Step-by-step recommendations prioritized for your specific behavioral patterns</div>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
-                  <CheckCircle className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-4 p-6 bg-gradient-to-r from-accent/10 to-primary/10 rounded-xl border border-accent/20">
+                  <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                    <Brain className="h-6 w-6 text-accent" />
+                  </div>
                   <div>
-                    <div className="font-semibold text-foreground">Industry Benchmarking</div>
-                    <div className="text-sm text-muted-foreground">See how you compare to top performers in your space</div>
+                    <div className="font-space-grotesk font-bold text-foreground text-lg mb-1">Industry Brain Benchmarking</div>
+                    <div className="text-sm text-muted-foreground font-inter">See how your behavioral data compares to top performers in your space</div>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 p-4 bg-muted/30 rounded-lg">
-                  <Mail className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
+                <div className="flex items-start gap-4 p-6 bg-gradient-to-r from-success/10 to-primary/10 rounded-xl border border-success/20">
+                  <div className="w-12 h-12 rounded-full bg-success/20 flex items-center justify-center flex-shrink-0">
+                    <Mail className="h-6 w-6 text-success" />
+                  </div>
                   <div>
-                    <div className="font-semibold text-foreground">Downloadable Report</div>
-                    <div className="text-sm text-muted-foreground">Professional infographic to share with your team</div>
+                    <div className="font-space-grotesk font-bold text-foreground text-lg mb-1">Shareable Brain Report</div>
+                    <div className="text-sm text-muted-foreground font-inter">Professional infographic to decode your data story with your team</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Email Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Enhanced Email Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="max-w-md mx-auto">
                 <Input
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder="Enter your email to decode your behavioral data"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="text-center text-lg py-6"
+                  className="text-center text-lg py-6 font-inter bg-input/50 border-primary/30 focus:border-primary focus:ring-primary/20"
                 />
               </div>
               <Button 
                 type="submit" 
                 size="lg" 
-                className="gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow transition-smooth w-full max-w-md"
+                className="gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow transition-smooth w-full max-w-md font-space-grotesk font-semibold text-lg py-6"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Generating Results..." : "Get My Complete Results"}
+                {isSubmitting ? (
+                  <div className="flex items-center gap-2">
+                    <Brain className="h-5 w-5 animate-pulse" />
+                    Decoding Your Brain Data...
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Brain className="h-5 w-5" />
+                    DECODE MY DATA BRAIN
+                  </div>
+                )}
               </Button>
             </form>
 
-            {/* Trust Elements */}
-            <div className="mt-6 text-sm text-muted-foreground">
-              <p>✓ No spam, ever. ✓ Unsubscribe anytime. ✓ Used by 1,000+ organizations.</p>
+            {/* Enhanced Trust Elements */}
+            <div className="mt-8 p-4 bg-muted/20 rounded-xl border border-border/30">
+              <div className="text-sm text-muted-foreground font-inter">
+                <div className="flex items-center justify-center gap-4 flex-wrap">
+                  <span className="flex items-center gap-1">
+                    <CheckCircle className="h-3 w-3 text-success" />
+                    No spam, ever
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <CheckCircle className="h-3 w-3 text-success" />
+                    Unsubscribe anytime
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <CheckCircle className="h-3 w-3 text-success" />
+                    Trusted by 1,000+ organizations
+                  </span>
+                </div>
+                <p className="text-xs text-center mt-2 opacity-75">
+                  Psychology-backed insights • Behavioral UX Research • Data-Driven Design
+                </p>
+              </div>
             </div>
           </div>
         </Card>
