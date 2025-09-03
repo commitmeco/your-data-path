@@ -9,6 +9,7 @@ interface ResultsViewProps {
   questions: Question[];
   onRestart: () => void;
   userType?: 'small-business' | 'nonprofit' | null;
+  userEmail?: string;
 }
 
 interface CategoryScore {
@@ -20,7 +21,7 @@ interface CategoryScore {
   questions: number;
 }
 
-export const ResultsView = ({ answers, questions, onRestart, userType }: ResultsViewProps) => {
+export const ResultsView = ({ answers, questions, onRestart, userType, userEmail }: ResultsViewProps) => {
   // Get contextual terms based on user type
   const audienceTerm = userType === 'nonprofit' ? 'donors' : 'customers';
   const conversionTerm = userType === 'nonprofit' ? 'donations' : 'sales';
@@ -77,6 +78,154 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
       default: return 'bg-muted';
     }
   };
+
+  // Generate personalized action plan based on user's specific results
+  const getPersonalizedActionPlan = () => {
+    const weakCategories = categoryScores.filter(c => c.level === 'needs-focus').sort((a, b) => a.percentage - b.percentage);
+    const strongCategories = categoryScores.filter(c => c.level === 'strong');
+    const moderateCategories = categoryScores.filter(c => c.level === 'moderate');
+    
+    const actions = [];
+
+    // Priority actions based on weakest areas
+    if (weakCategories.length > 0) {
+      const weakest = weakCategories[0];
+      
+      if (weakest.category === 'Behavioral Signals') {
+        actions.push({
+          priority: 1,
+          title: `Track ${audienceTerm} Drop-off Points`,
+          description: `Set up heatmaps and analytics to identify where ${audienceTerm} get frustrated and leave. Focus on your highest-traffic pages first.`,
+          impact: 'High',
+          timeframe: '1-2 weeks',
+          category: 'Behavioral Signals'
+        });
+      } else if (weakest.category === 'Conversion Pathways') {
+        actions.push({
+          priority: 1,
+          title: userType === 'nonprofit' ? 'Simplify Your Donation Process' : 'Streamline Your Checkout Process',
+          description: userType === 'nonprofit' 
+            ? 'Remove unnecessary steps from your donation flow. Test one-click donation options and ensure mobile optimization.'
+            : 'Reduce checkout steps and eliminate form fields. Test guest checkout and mobile payment options.',
+          impact: 'High',
+          timeframe: '2-3 weeks',
+          category: 'Conversion Pathways'
+        });
+      } else if (weakest.category === 'Trust & Credibility') {
+        actions.push({
+          priority: 1,
+          title: userType === 'nonprofit' ? 'Showcase Impact Stories' : 'Add Social Proof',
+          description: userType === 'nonprofit'
+            ? 'Create compelling donor testimonials and impact stories. Place them prominently on your donation pages.'
+            : 'Add customer reviews, testimonials, and trust badges to your key conversion pages.',
+          impact: 'High',
+          timeframe: '1-2 weeks',
+          category: 'Trust & Credibility'
+        });
+      } else if (weakest.category === 'Content & Voice') {
+        actions.push({
+          priority: 1,
+          title: `Create ${audienceTerm}-Focused Messaging`,
+          description: userType === 'nonprofit'
+            ? 'Rewrite your key pages to focus on donor motivations and mission impact rather than organizational details.'
+            : 'Audit your copy to focus on customer benefits and outcomes rather than features and company information.',
+          impact: 'Medium',
+          timeframe: '2-4 weeks',
+          category: 'Content & Voice'
+        });
+      } else if (weakest.category === 'User Experience') {
+        actions.push({
+          priority: 1,
+          title: 'Optimize Mobile Experience',
+          description: 'Test your site on multiple mobile devices. Focus on page speed, navigation, and form completion on mobile.',
+          impact: 'High',
+          timeframe: '2-3 weeks',
+          category: 'User Experience'
+        });
+      } else if (weakest.category === 'Measurement') {
+        actions.push({
+          priority: 1,
+          title: 'Set Up Conversion Tracking',
+          description: `Install proper analytics to track ${audienceTerm} journeys from first visit to ${userType === 'nonprofit' ? 'donation' : 'purchase'}. Focus on goal tracking and funnel analysis.`,
+          impact: 'Medium',
+          timeframe: '1-2 weeks',
+          category: 'Measurement'
+        });
+      }
+    }
+
+    // Secondary actions for moderate categories
+    if (moderateCategories.length > 0) {
+      const topModerate = moderateCategories.sort((a, b) => b.percentage - a.percentage)[0];
+      
+      if (topModerate.category === 'Behavioral Signals') {
+        actions.push({
+          priority: 2,
+          title: 'Implement User Feedback Collection',
+          description: `Add exit-intent surveys and feedback widgets to understand why ${audienceTerm} leave without converting.`,
+          impact: 'Medium',
+          timeframe: '1-2 weeks',
+          category: 'Behavioral Signals'
+        });
+      } else if (topModerate.category === 'Conversion Pathways') {
+        actions.push({
+          priority: 2,
+          title: 'A/B Test Your CTAs',
+          description: 'Test different call-to-action button colors, text, and placement to optimize for higher conversion rates.',
+          impact: 'Medium',
+          timeframe: '2-3 weeks',
+          category: 'Conversion Pathways'
+        });
+      } else if (topModerate.category === 'Trust & Credibility') {
+        actions.push({
+          priority: 2,
+          title: 'Add More Trust Signals',
+          description: 'Include security badges, partner logos, and additional testimonials across your key pages.',
+          impact: 'Medium',
+          timeframe: '1 week',
+          category: 'Trust & Credibility'
+        });
+      }
+    }
+
+    // Leverage strengths
+    if (strongCategories.length > 0) {
+      const topStrength = strongCategories.sort((a, b) => b.percentage - a.percentage)[0];
+      actions.push({
+        priority: 3,
+        title: `Leverage Your ${topStrength.category} Success`,
+        description: `Your ${topStrength.category.toLowerCase()} is a strength. Document what's working and apply these successful elements to improve your weaker areas.`,
+        impact: 'Medium',
+        timeframe: '1 week',
+        category: topStrength.category
+      });
+    }
+
+    // Overall score-based recommendations
+    if (overallPercentage < 50) {
+      actions.push({
+        priority: 1,
+        title: 'Focus on Quick Wins First',
+        description: `With your current score, focus on the easiest improvements first. Small changes in ${weakCategories[0]?.category.toLowerCase()} can have immediate impact.`,
+        impact: 'High',
+        timeframe: '1 week',
+        category: 'Overall Strategy'
+      });
+    } else if (overallPercentage >= 80) {
+      actions.push({
+        priority: 2,
+        title: 'Optimize for Advanced Conversions',
+        description: `Your foundation is strong. Focus on advanced techniques like personalization and behavioral triggers to maximize ${conversionTerm}.`,
+        impact: 'Medium',
+        timeframe: '4-6 weeks',
+        category: 'Overall Strategy'
+      });
+    }
+
+    return actions.slice(0, 4); // Return top 4 actions
+  };
+
+  const actionPlan = getPersonalizedActionPlan();
 
   const recommendations = {
     'strong': 'Your strength here is driving results. Consider sharing this success with other areas.',
@@ -282,6 +431,84 @@ export const ResultsView = ({ answers, questions, onRestart, userType }: Results
             );
           })}
         </div>
+
+        {/* Personalized Action Plan */}
+        {userEmail && (
+          <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
+            <div className="p-8">
+              <div className="flex items-center justify-center mb-6">
+                <div className="w-3 h-3 rounded-full bg-primary mr-3" />
+                <h2 className="text-3xl font-bold text-foreground">
+                  Your Personalized Action Plan
+                </h2>
+              </div>
+              
+              <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Based on your specific results, here's your customized roadmap to improve {conversionTerm} and {audienceTerm} engagement:
+              </p>
+
+              <div className="space-y-6">
+                {actionPlan.map((action, index) => (
+                  <div key={index} className="relative">
+                    <div className="flex items-start gap-4 p-6 bg-muted/20 rounded-xl border border-border/30">
+                      <div className="flex-shrink-0">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                          action.priority === 1 ? 'bg-destructive/20 text-destructive' :
+                          action.priority === 2 ? 'bg-warning/20 text-warning' :
+                          'bg-primary/20 text-primary'
+                        }`}>
+                          {action.priority}
+                        </div>
+                      </div>
+                      
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-4 mb-3">
+                          <h3 className="font-semibold text-foreground text-lg">
+                            {action.title}
+                          </h3>
+                          <div className="flex gap-2 flex-shrink-0">
+                            <Badge variant="outline" className="text-xs">
+                              {action.impact} Impact
+                            </Badge>
+                            <Badge variant="outline" className="text-xs">
+                              {action.timeframe}
+                            </Badge>
+                          </div>
+                        </div>
+                        
+                        <p className="text-muted-foreground leading-relaxed mb-3">
+                          {action.description}
+                        </p>
+                        
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-medium text-primary bg-primary/10 px-2 py-1 rounded">
+                            Focus Area: {action.category}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {index < actionPlan.length - 1 && (
+                      <div className="absolute left-4 top-16 w-0.5 h-4 bg-border" />
+                    )}
+                  </div>
+                ))}
+              </div>
+              
+              <div className="mt-8 p-6 bg-primary/5 rounded-xl border border-primary/20">
+                <div className="text-center">
+                  <h3 className="font-semibold text-foreground mb-2">
+                    Implementation Tip
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Start with Priority 1 actions first. Complete one before moving to the next. 
+                    Small, consistent improvements compound over time for maximum {revenueTerms.impact.toLowerCase()}.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Card>
+        )}
 
         {/* Next Steps */}
         <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">

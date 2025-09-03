@@ -2,6 +2,7 @@ import { useState } from "react";
 import { QuestionCard } from "./QuestionCard";
 import { ProgressBar } from "./ProgressBar";
 import { ResultsView } from "./ResultsView";
+import { EmailCapture } from "./EmailCapture";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -146,7 +147,9 @@ export const DataAuditQuiz = () => {
   const [showFilter, setShowFilter] = useState(true);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Answer[]>([]);
+  const [showEmailCapture, setShowEmailCapture] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   // Get questions based on user type
@@ -179,7 +182,7 @@ export const DataAuditQuiz = () => {
       }, 300);
     } else {
       setTimeout(() => {
-        setShowResults(true);
+        setShowEmailCapture(true);
       }, 500);
     }
   };
@@ -194,17 +197,33 @@ export const DataAuditQuiz = () => {
     }
   };
 
+  const handleEmailSubmit = (email: string) => {
+    setUserEmail(email);
+    setShowEmailCapture(false);
+    setShowResults(true);
+  };
+
   const handleRestart = () => {
     setUserType(null);
     setShowFilter(true);
     setCurrentQuestion(0);
     setAnswers([]);
+    setShowEmailCapture(false);
     setShowResults(false);
+    setUserEmail("");
     setIsTransitioning(false);
   };
 
   if (showResults) {
-    return <ResultsView answers={answers} questions={questions} onRestart={handleRestart} userType={userType} />;
+    return <ResultsView answers={answers} questions={questions} onRestart={handleRestart} userType={userType} userEmail={userEmail} />;
+  }
+
+  if (showEmailCapture) {
+    const totalScore = answers.reduce((sum, answer) => sum + answer.value, 0);
+    const maxTotalScore = questions.length * 2;
+    const overallPercentage = (totalScore / maxTotalScore) * 100;
+    
+    return <EmailCapture overallScore={overallPercentage} onEmailSubmit={handleEmailSubmit} userType={userType} />;
   }
 
   // Filter Screen
