@@ -23,10 +23,12 @@ export type Database = {
           email: string
           email_error: string | null
           email_sent: boolean | null
+          first_name: string | null
           hubspot_contact_id: string | null
           hubspot_sync_error: string | null
           hubspot_synced: boolean | null
           id: string
+          last_name: string | null
           lead_source: string | null
           quiz_completion_date: string | null
           quiz_score: number | null
@@ -44,10 +46,12 @@ export type Database = {
           email: string
           email_error?: string | null
           email_sent?: boolean | null
+          first_name?: string | null
           hubspot_contact_id?: string | null
           hubspot_sync_error?: string | null
           hubspot_synced?: boolean | null
           id?: string
+          last_name?: string | null
           lead_source?: string | null
           quiz_completion_date?: string | null
           quiz_score?: number | null
@@ -65,10 +69,12 @@ export type Database = {
           email?: string
           email_error?: string | null
           email_sent?: boolean | null
+          first_name?: string | null
           hubspot_contact_id?: string | null
           hubspot_sync_error?: string | null
           hubspot_synced?: boolean | null
           id?: string
+          last_name?: string | null
           lead_source?: string | null
           quiz_completion_date?: string | null
           quiz_score?: number | null

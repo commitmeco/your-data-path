@@ -25,6 +25,8 @@ export const EmailCaptureExtended = ({
   onEmailSubmit, 
   userType 
 }: EmailCaptureExtendedProps) => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
   const [role, setRole] = useState('');
@@ -48,6 +50,8 @@ export const EmailCaptureExtended = ({
 
     try {
       const leadData = {
+        first_name: firstName.trim() || undefined,
+        last_name: lastName.trim() || undefined,
         email: email.trim(),
         company: company.trim() || undefined,
         role: role.trim() || undefined,
@@ -164,6 +168,31 @@ export const EmailCaptureExtended = ({
                 className="border-primary/20 focus:border-primary"
                 required
               />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label htmlFor="firstName">First Name</Label>
+                <Input
+                  id="firstName"
+                  type="text"
+                  placeholder="John"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="border-primary/20 focus:border-primary"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lastName">Last Name</Label>
+                <Input
+                  id="lastName"
+                  type="text"
+                  placeholder="Doe"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="border-primary/20 focus:border-primary"
+                />
+              </div>
             </div>
 
             <div className="space-y-2">

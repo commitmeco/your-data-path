@@ -1,4 +1,6 @@
 export interface HubSpotContact {
+  first_name?: string;
+  last_name?: string;
   email: string;
   company?: string;
   role?: string;

@@ -2,6 +2,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { hubspotPrivateAppService, HubSpotContact } from "./hubspot-private-app";
 
 export interface LeadData {
+  first_name?: string;
+  last_name?: string;
   email: string;
   company?: string;
   role?: string;
@@ -37,6 +39,8 @@ export class LeadsService {
       const { data: lead, error: dbError } = await supabase
         .from('leads')
         .insert({
+          first_name: leadData.first_name,
+          last_name: leadData.last_name,
           email: leadData.email,
           company: leadData.company,
           role: leadData.role,
@@ -66,6 +70,8 @@ export class LeadsService {
 
       try {
         const hubspotContactData: HubSpotContact = {
+          first_name: leadData.first_name,
+          last_name: leadData.last_name,
           email: leadData.email,
           company: leadData.company,
           role: leadData.role,
@@ -139,6 +145,8 @@ export class LeadsService {
       }
 
       const hubspotContactData: HubSpotContact = {
+        first_name: lead.first_name,
+        last_name: lead.last_name,
         email: lead.email,
         company: lead.company,
         role: lead.role,

@@ -8,6 +8,8 @@ const corsHeaders = {
 };
 
 interface HubSpotContact {
+  first_name?: string;
+  last_name?: string;
   email: string;
   company?: string;
   role?: string;
@@ -79,6 +81,8 @@ async function handleCreateOrUpdateContact(contactData: HubSpotContact): Promise
     };
 
     // Map our data to HubSpot properties
+    if (contactData.first_name) properties.firstname = contactData.first_name;
+    if (contactData.last_name) properties.lastname = contactData.last_name;
     if (contactData.company) properties.company = contactData.company;
     if (contactData.role) properties.jobtitle = contactData.role;
     if (contactData.team_size) properties.team_size = contactData.team_size;
