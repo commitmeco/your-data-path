@@ -91,7 +91,7 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
               <CMCDBrandMark />
             </div>
 
-            {/* Enhanced Score Preview */}
+            {/* Simplified Analysis Complete */}
             <div className="mb-8">
               <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="relative">
@@ -106,7 +106,7 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
                 </div>
               </div>
               <div className="text-6xl font-space-grotesk font-bold text-primary shadow-glow mb-4 relative">
-                {Math.round(overallScore)}%
+                ???
                 <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-success animate-ping" />
               </div>
               <p className="text-muted-foreground text-lg max-w-lg mx-auto font-inter">
@@ -114,43 +114,14 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
               </p>
             </div>
 
-            {/* Enhanced Value Proposition */}
+            {/* Simplified Value Proposition */}
             <div className="mb-8 space-y-4">
-              <h2 className="text-3xl font-space-grotesk font-bold text-foreground mb-6">
+              <h2 className="text-3xl font-space-grotesk font-bold text-foreground mb-4">
                 YOUR DATA HAS A BRAIN
               </h2>
-              <p className="text-muted-foreground mb-6 font-inter">
-                <span className="text-primary font-medium">We decode human behavior</span> with research, design, and a touch of rebellion
+              <p className="text-muted-foreground mb-6 font-inter text-lg">
+                <span className="text-primary font-medium">Get your personalized behavioral insights report</span>
               </p>
-              <div className="grid gap-4 text-left">
-                <div className="flex items-start gap-4 p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl border border-primary/20">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Download className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="font-space-grotesk font-bold text-foreground text-lg mb-1">Personalized Action Plan</div>
-                    <div className="text-sm text-muted-foreground font-inter">Step-by-step recommendations prioritized for your specific behavioral patterns</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 p-6 bg-gradient-to-r from-accent/10 to-primary/10 rounded-xl border border-accent/20">
-                  <div className="w-12 h-12 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                    <Brain className="h-6 w-6 text-accent" />
-                  </div>
-                  <div>
-                    <div className="font-space-grotesk font-bold text-foreground text-lg mb-1">Industry Brain Benchmarking</div>
-                    <div className="text-sm text-muted-foreground font-inter">See how your behavioral data compares to top performers in your space</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4 p-6 bg-gradient-to-r from-success/10 to-primary/10 rounded-xl border border-success/20">
-                  <div className="w-12 h-12 rounded-full bg-success/20 flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-6 w-6 text-success" />
-                  </div>
-                  <div>
-                    <div className="font-space-grotesk font-bold text-foreground text-lg mb-1">Shareable Brain Report</div>
-                    <div className="text-sm text-muted-foreground font-inter">Professional infographic to decode your data story with your team</div>
-                  </div>
-                </div>
-              </div>
             </div>
 
             {/* Enhanced Email Form */}
