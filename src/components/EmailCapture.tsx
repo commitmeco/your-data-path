@@ -196,7 +196,7 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
                 ) : (
                   <div className="flex items-center gap-2">
                     <Brain className="h-5 w-5" />
-                    DECODE MY DATA BRAIN
+                    RUN MY AUDIT
                   </div>
                 )}
               </Button>
