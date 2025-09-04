@@ -80,19 +80,34 @@ async function handleCreateOrUpdateContact(contactData: HubSpotContact): Promise
       email: contactData.email,
     };
 
-    // Map our data to HubSpot properties
+    // Map our data to HubSpot properties (only include standard properties + existing custom ones)
     if (contactData.first_name) properties.firstname = contactData.first_name;
     if (contactData.last_name) properties.lastname = contactData.last_name;
     if (contactData.company) properties.company = contactData.company;
     if (contactData.role) properties.jobtitle = contactData.role;
-    if (contactData.team_size) properties.team_size = contactData.team_size;
-    if (contactData.quiz_score !== undefined) properties.quiz_score = contactData.quiz_score.toString();
-    if (contactData.user_type) properties.user_type = contactData.user_type;
-    if (contactData.dominant_type) properties.dominant_type = contactData.dominant_type;
-    if (contactData.secondary_type) properties.secondary_type = contactData.secondary_type;
-    if (contactData.dna_scores) properties.dna_scores = JSON.stringify(contactData.dna_scores);
-    if (contactData.quiz_completion_date) properties.quiz_completion_date = contactData.quiz_completion_date;
-    if (contactData.lead_source) properties.lead_source = contactData.lead_source;
+    
+    // Only include custom properties if they exist in HubSpot (to prevent errors)
+    // You need to create these custom properties in HubSpot first:
+    // team_size, quiz_score, user_type, dominant_type, secondary_type, dna_scores, lead_source
+    
+    // Convert quiz_completion_date to proper date format (YYYY-MM-DD) if provided
+    if (contactData.quiz_completion_date) {
+      try {
+        const date = new Date(contactData.quiz_completion_date);
+        properties.quiz_completion_date = date.toISOString().split('T')[0]; // YYYY-MM-DD format
+      } catch (e) {
+        console.log('Invalid date format for quiz_completion_date');
+      }
+    }
+    
+    // These will only work if you create the custom properties in HubSpot
+    // if (contactData.team_size) properties.team_size = contactData.team_size;
+    // if (contactData.quiz_score !== undefined) properties.quiz_score = contactData.quiz_score.toString();
+    // if (contactData.user_type) properties.user_type = contactData.user_type;
+    // if (contactData.dominant_type) properties.dominant_type = contactData.dominant_type;
+    // if (contactData.secondary_type) properties.secondary_type = contactData.secondary_type;
+    // if (contactData.dna_scores) properties.dna_scores = JSON.stringify(contactData.dna_scores);
+    // if (contactData.lead_source) properties.lead_source = contactData.lead_source;
 
     let contactId: string;
     
