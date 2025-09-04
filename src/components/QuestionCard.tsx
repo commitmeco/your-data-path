@@ -38,8 +38,11 @@ export const QuestionCard = ({ question, onAnswer, onPrevious, selectedValue }: 
       {/* Enhanced Question Header */}
       <Card className="p-6 border border-primary/20 bg-gradient-to-r from-primary/5 to-accent/5">
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-            <Brain className="h-6 w-6 text-primary" />
+          {/* Enhanced brain icon container */}
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 via-primary/10 to-accent/10 border border-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/40 to-accent/30 flex items-center justify-center">
+              <Brain className="h-5 w-5 text-primary drop-shadow-sm" />
+            </div>
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-3">

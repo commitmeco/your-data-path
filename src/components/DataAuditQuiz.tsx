@@ -246,27 +246,33 @@ export const DataAuditQuiz = () => {
         <div className="w-full max-w-2xl relative z-10">
           <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
             <div className="p-8">
-              {/* Enhanced CMCD Header */}
-              <div className="text-center mb-8">
-                <div className="flex items-center justify-center mb-6">
-                  <CMCDBrandMark />
-                </div>
-                <div className="flex items-center justify-center gap-4 mb-6">
-                  <div className="relative">
-                    <Brain className="h-10 w-10 text-primary animate-pulse" />
-                    <Sparkles className="h-3 w-3 text-accent absolute -top-0.5 -right-0.5" />
-                  </div>
-                  <div className="text-left">
-                    <h1 className="text-4xl font-space-grotesk font-bold text-foreground mb-2 leading-tight">
-                      YOUR DATA HAS A BRAIN
-                    </h1>
-                    <p className="text-primary font-medium font-inter">We decode human behavior</p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground text-lg font-inter max-w-lg mx-auto">
-                  Let's see what your behavioral data is telling you about your audience engagement.
-                </p>
+            {/* Enhanced CMCD Header with polished brain */}
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center mb-6">
+                <CMCDBrandMark />
               </div>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="relative group">
+                  {/* Enhanced brain container */}
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-elegant relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse rounded-full blur-sm"></div>
+                    <div className="relative z-10 w-full h-full flex items-center justify-center">
+                      <Brain className="h-6 w-6 text-primary-foreground drop-shadow-sm animate-pulse" />
+                    </div>
+                  </div>
+                  <div className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-accent shadow-glow animate-pulse" style={{ animationDelay: '0.5s' }} />
+                </div>
+                <div className="text-left">
+                  <h1 className="text-4xl font-space-grotesk font-bold text-foreground mb-2 leading-tight">
+                    YOUR DATA HAS A BRAIN
+                  </h1>
+                  <p className="text-primary font-medium font-inter">We decode human behavior</p>
+                </div>
+              </div>
+              <p className="text-muted-foreground text-lg font-inter max-w-lg mx-auto">
+                Let's see what your behavioral data is telling you about your audience engagement.
+              </p>
+            </div>
 
               {/* Enhanced Filter Question */}
               <div className={`transition-smooth ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
@@ -336,13 +342,22 @@ export const DataAuditQuiz = () => {
       <div className="w-full max-w-2xl relative z-10">
         <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
           <div className="p-8">
-            {/* Enhanced CMCD Header */}
+            {/* Enhanced CMCD Header with polished brain */}
             <div className="text-center mb-8">
               <div className="flex items-center justify-center mb-6">
                 <CMCDBrandMark />
               </div>
               <div className="flex items-center justify-center gap-4 mb-4">
-                <Brain className="h-8 w-8 text-primary animate-pulse" />
+                <div className="relative group">
+                  {/* Enhanced brain container */}
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-elegant relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse rounded-full blur-sm"></div>
+                    <div className="relative z-10 w-full h-full flex items-center justify-center">
+                      <Brain className="h-5 w-5 text-primary-foreground drop-shadow-sm animate-pulse" />
+                    </div>
+                  </div>
+                  <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-accent shadow-glow animate-pulse" style={{ animationDelay: '0.5s' }} />
+                </div>
                 <h1 className="text-3xl font-space-grotesk font-bold text-foreground">
                   YOUR DATA HAS A BRAIN
                 </h1>

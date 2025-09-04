@@ -333,9 +333,18 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
               <CMCDBrandMark />
             </div>
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="relative">
-                <Brain className="h-12 w-12 text-primary animate-pulse" />
-                <Sparkles className="h-4 w-4 text-accent absolute -top-1 -right-1" />
+              <div className="relative group">
+                {/* Enhanced brain container */}
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-elegant relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse rounded-full blur-sm"></div>
+                  <div className="relative z-10 w-full h-full flex items-center justify-center">
+                    <Brain className="h-8 w-8 text-primary-foreground drop-shadow-sm animate-pulse" />
+                  </div>
+                </div>
+                <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent shadow-glow flex items-center justify-center animate-pulse">
+                  <Sparkles className="h-3 w-3 text-accent-foreground" />
+                </div>
+                <div className="absolute -bottom-1 -left-1 w-3 h-3 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '1s' }} />
               </div>
               <div className="text-left">
                 <h1 className="text-5xl font-space-grotesk font-bold text-foreground mb-2 leading-tight">
@@ -465,7 +474,14 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
               </div>
               <div className="text-center mb-8">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <Brain className="h-8 w-8 text-primary animate-pulse" />
+                  <div className="relative">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-elegant relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse rounded-full blur-sm"></div>
+                      <div className="relative z-10 w-full h-full flex items-center justify-center">
+                        <Brain className="h-5 w-5 text-primary-foreground drop-shadow-sm animate-pulse" />
+                      </div>
+                    </div>
+                  </div>
                   <h2 className="text-3xl font-space-grotesk font-bold text-foreground">
                     YOUR BEHAVIORAL ACTION PLAN
                   </h2>
@@ -549,8 +565,8 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
         {/* Next Steps */}
         <Card className="shadow-elegant border-border/50 bg-card/90 backdrop-blur-sm">
           <div className="p-8">
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-3 h-3 rounded-full bg-primary mr-3" />
+            <div className="text-center mb-6">
+              <div className="w-3 h-3 rounded-full bg-primary mx-auto mb-3" />
               <h2 className="text-3xl font-bold text-foreground">
                 Ready to Unlock Your {revenueTerms.revenue}?
               </h2>

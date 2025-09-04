@@ -91,14 +91,26 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
               <CMCDBrandMark />
             </div>
 
-            {/* Simplified Analysis Complete */}
+            {/* Enhanced Brain Visual */}
             <div className="mb-8">
               <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="relative">
-                  <Brain className="h-12 w-12 text-primary animate-pulse" />
-                  <Sparkles className="h-4 w-4 text-accent absolute -top-1 -right-1" />
+                <div className="relative group">
+                  {/* Main brain container with enhanced styling */}
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-elegant relative overflow-hidden">
+                    {/* Animated background glow */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse rounded-full blur-sm"></div>
+                    <div className="relative z-10 w-full h-full flex items-center justify-center">
+                      <Brain className="h-8 w-8 text-primary-foreground drop-shadow-sm" />
+                    </div>
+                  </div>
+                  {/* Enhanced sparkles effect */}
+                  <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent shadow-glow flex items-center justify-center animate-pulse">
+                    <Sparkles className="h-3 w-3 text-accent-foreground" />
+                  </div>
+                  {/* Additional floating elements */}
+                  <div className="absolute -bottom-1 -left-1 w-3 h-3 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '1s' }} />
                 </div>
-                <div>
+                <div className="text-center">
                   <h1 className="text-4xl font-space-grotesk font-bold text-foreground">
                     ANALYSIS COMPLETE
                   </h1>
@@ -114,8 +126,8 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
               </p>
             </div>
 
-            {/* Simplified Value Proposition */}
-            <div className="mb-8 space-y-4">
+            {/* Enhanced Value Proposition */}
+            <div className="mb-8 space-y-4 text-center">
               <h2 className="text-3xl font-space-grotesk font-bold text-foreground mb-4">
                 YOUR DATA HAS A BRAIN
               </h2>
