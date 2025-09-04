@@ -628,51 +628,59 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
                   onClick={() => {
                     const subject = encodeURIComponent(`My CMCD Behavioral Audit Results - ${Math.round(overallPercentage)}% Score`);
                     const textBody = `
-CMCD BEHAVIORAL AUDIT RESULTS
-============================
+🧠 CMCD BEHAVIORAL AUDIT RESULTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Overall Score: ${Math.round(overallPercentage)}% (${totalScore} out of ${maxTotalScore} points)
+📊 YOUR BEHAVIORAL SCORE: ${Math.round(overallPercentage)}%
+   (${totalScore} out of ${maxTotalScore} points)
 
-Hello!
+Hello! 👋
 
-You just completed the CMCD Behavioral Audit. Your assessment reveals specific opportunities to unlock ${conversionTerm} and eliminate barriers keeping ${audienceTerm} from supporting ${userType === 'nonprofit' ? 'your mission' : 'your business'}.
+You've just completed the CMCD Behavioral Audit - congratulations! Your data has a brain, and we've decoded what it's telling you.
 
-CATEGORY BREAKDOWN
-==================
+🎯 KEY INSIGHTS:
+Your assessment reveals specific opportunities to unlock ${conversionTerm} and eliminate barriers keeping ${audienceTerm} from supporting ${userType === 'nonprofit' ? 'your mission' : 'your business'}.
+
+📈 CATEGORY BREAKDOWN
+━━━━━━━━━━━━━━━━━━━━
 
 ${categoryScores.map(cat => `
-${cat.category}: ${Math.round(cat.percentage)}% - ${cat.level.replace('-', ' ').toUpperCase()}
-${
-  cat.level === 'strong' ? 'Your strength here is driving results. Consider sharing this success with other areas.' :
-  cat.level === 'moderate' ? 'Good foundation with room for optimization. Small improvements here can yield significant returns.' :
-  'High-impact opportunity. Addressing this area should be a priority for immediate results.'
-}
+🔍 ${cat.category}: ${Math.round(cat.percentage)}%
+   Status: ${cat.level.replace('-', ' ').toUpperCase()}
+   
+   ${
+     cat.level === 'strong' ? '✅ STRENGTH: Your performance here is driving results. Consider sharing this success with other areas.' :
+     cat.level === 'moderate' ? '⚡ OPPORTUNITY: Good foundation with room for optimization. Small improvements here can yield significant returns.' :
+     '🚨 PRIORITY: High-impact opportunity. Addressing this area should be a priority for immediate results.'
+   }
 `).join('')}
 
 ${categoryScores.filter(c => c.level === 'needs-focus').length > 0 ? `
-PRIORITY AREAS FOR IMPROVEMENT
-==============================
-${categoryScores.filter(c => c.level === 'needs-focus').map(cat => `• ${cat.category} (${Math.round(cat.percentage)}%)`).join('\n')}
+🎯 PRIORITY FOCUS AREAS
+━━━━━━━━━━━━━━━━━━━━━━
+${categoryScores.filter(c => c.level === 'needs-focus').map(cat => `🔥 ${cat.category} (${Math.round(cat.percentage)}%)`).join('\n')}
 ` : ''}
 
 ${categoryScores.filter(c => c.level === 'strong').length > 0 ? `
-YOUR STRENGTHS
-==============
-${categoryScores.filter(c => c.level === 'strong').map(cat => `• ${cat.category} (${Math.round(cat.percentage)}%)`).join('\n')}
+💪 YOUR BEHAVIORAL STRENGTHS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+${categoryScores.filter(c => c.level === 'strong').map(cat => `⭐ ${cat.category} (${Math.round(cat.percentage)}%)`).join('\n')}
 ` : ''}
 
-READY TO UNLOCK YOUR ${userType === 'nonprofit' ? 'HIDDEN FUNDING' : 'HIDDEN REVENUE'}?
-${Array(60).fill('=').join('')}
+🚀 READY TO UNLOCK YOUR ${userType === 'nonprofit' ? 'HIDDEN FUNDING' : 'HIDDEN REVENUE'}?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 This behavioral assessment shows you what's possible. A comprehensive CMCD audit reveals exactly how to implement these improvements and measures the ${userType === 'nonprofit' ? 'mission impact' : 'business growth'} of each change.
 
-Get Your Full CMCD Audit: https://www.commitme.co/book
+📅 Get Your Full CMCD Audit: https://www.commitme.co/book
 
----
-Powered by Commit Me Co Design
-Behavioral UX Research & Data-Driven Design
-www.commitmeco.design
-                    `;
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🏢 Powered by Commit Me Co Design
+🧠 Behavioral UX Research & Data-Driven Design
+🌐 www.commitmeco.design
+
+"YOUR DATA HAS A BRAIN - We decode human behavior"
+                     `;
                     const body = encodeURIComponent(textBody);
                     window.open(`mailto:?subject=${subject}&body=${body}`, '_self');
                   }}
