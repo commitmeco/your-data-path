@@ -606,7 +606,7 @@ export const ResultsView = ({ answers, questions, onRestart, userType, userEmail
                 <Button 
                   size="lg" 
                   className="gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow transition-smooth"
-                  onClick={() => window.open('https://www.commitmeco.design/signal-sync', '_blank')}
+                  onClick={() => window.open('https://www.commitme.co/book', '_blank')}
                 >
                   Get Your Full CMCD Audit
                 </Button>
@@ -666,7 +666,7 @@ ${Array(60).fill('=').join('')}
 
 This behavioral assessment shows you what's possible. A comprehensive CMCD audit reveals exactly how to implement these improvements and measures the ${userType === 'nonprofit' ? 'mission impact' : 'business growth'} of each change.
 
-Get Your Full CMCD Audit: https://www.commitmeco.design/signal-sync
+Get Your Full CMCD Audit: https://www.commitme.co/book
 
 ---
 Powered by Commit Me Co Design
