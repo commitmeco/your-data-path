@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { CheckCircle, Mail, Download, Brain, Sparkles } from "lucide-react";
 import { CMCDBrandMark } from "./CMCDLogo";
 import { HubSpotConfig } from "./HubSpotConfig";
-import { hubspotService, HubSpotLeadData } from "@/services/hubspot";
+import { leadsService } from "@/services/leads";
 import { useToast } from "@/hooks/use-toast";
 
 interface EmailCaptureProps {
@@ -29,8 +29,8 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
     setIsSubmitting(true);
     
     try {
-      // Prepare lead data for HubSpot
-      const leadData: HubSpotLeadData = {
+      // Prepare lead data
+      const leadData = {
         email: email.trim(),
         quiz_score: Math.round(overallScore),
         user_type: userType || 'unknown',
@@ -38,22 +38,29 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
         lead_source: 'CMCD Data Audit Quiz'
       };
 
-      // Submit to HubSpot
-      const hubspotSuccess = await hubspotService.submitLead(leadData);
+      // Save to database and sync to HubSpot
+      const result = await leadsService.captureLead(leadData);
       
-      if (hubspotSuccess) {
-        toast({
-          title: "Success!",
-          description: "Your data brain analysis is ready. We've also added you to our insights mailing list.",
-        });
+      if (result.success) {
+        if (result.lead?.hubspot_synced) {
+          toast({
+            title: "Success!",
+            description: "Your data brain analysis is ready. We've also added you to our insights mailing list.",
+          });
+        } else {
+          toast({
+            title: "Analysis Ready",
+            description: "Your behavioral insights are ready to view! (We'll sync your data shortly)",
+          });
+        }
       } else {
         toast({
-          title: "Analysis Ready",
+          title: "Analysis Ready", 
           description: "Your behavioral insights are ready to view!",
         });
       }
 
-      // Proceed to results regardless of HubSpot success
+      // Always proceed to results - lead is saved locally
       onEmailSubmit(email);
       
     } catch (error) {

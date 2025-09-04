@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      leads: {
+        Row: {
+          created_at: string
+          email: string
+          hubspot_sync_error: string | null
+          hubspot_synced: boolean | null
+          id: string
+          lead_source: string | null
+          quiz_completion_date: string | null
+          quiz_score: number | null
+          updated_at: string
+          user_type: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          hubspot_sync_error?: string | null
+          hubspot_synced?: boolean | null
+          id?: string
+          lead_source?: string | null
+          quiz_completion_date?: string | null
+          quiz_score?: number | null
+          updated_at?: string
+          user_type?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          hubspot_sync_error?: string | null
+          hubspot_synced?: boolean | null
+          id?: string
+          lead_source?: string | null
+          quiz_completion_date?: string | null
+          quiz_score?: number | null
+          updated_at?: string
+          user_type?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
