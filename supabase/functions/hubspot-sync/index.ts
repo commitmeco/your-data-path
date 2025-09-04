@@ -205,7 +205,9 @@ async function handleSendEmail(contactId: string, emailTemplate: string, emailDa
 
 async function getContactByEmail(email: string): Promise<any | null> {
   try {
-    const response = await fetch(`https://api.hubapi.com/crm/v3/objects/contacts?properties=email,firstname,lastname,company,jobtitle&limit=1`, {
+    console.log('Searching for contact with email:', email);
+    
+    const response = await fetch('https://api.hubapi.com/crm/v3/objects/contacts/search', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${hubspotToken}`,
@@ -223,21 +225,37 @@ async function getContactByEmail(email: string): Promise<any | null> {
             ],
           },
         ],
+        properties: ['email', 'firstname', 'lastname', 'company', 'jobtitle', 'hs_object_id'],
+        limit: 1,
       }),
     });
 
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('HubSpot search API error:', response.status, errorText);
+      
       if (response.status === 404) {
         return null; // Contact not found
       }
-      const errorData = await response.json();
-      throw new Error(`Failed to search for contact: ${errorData.message || response.statusText}`);
+      
+      // Don't throw error for search failures, just return null
+      console.log('Contact search failed, will create new contact');
+      return null;
     }
 
     const searchResult = await response.json();
-    return searchResult.results && searchResult.results.length > 0 ? searchResult.results[0] : null;
+    console.log('Search result:', JSON.stringify(searchResult, null, 2));
+    
+    if (searchResult.results && searchResult.results.length > 0) {
+      console.log('Found existing contact:', searchResult.results[0].id);
+      return searchResult.results[0];
+    }
+    
+    console.log('No existing contact found');
+    return null;
   } catch (error) {
     console.error('Error searching for contact:', error);
+    // Don't throw error, just return null so we create a new contact
     return null;
   }
 }
