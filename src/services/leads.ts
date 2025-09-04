@@ -1,10 +1,16 @@
 import { supabase } from "@/integrations/supabase/client";
-import { hubspotService, HubSpotLeadData } from "./hubspot";
+import { hubspotPrivateAppService, HubSpotContact } from "./hubspot-private-app";
 
 export interface LeadData {
   email: string;
+  company?: string;
+  role?: string;
+  team_size?: string;
   quiz_score?: number;
   user_type?: string;
+  dominant_type?: string;
+  secondary_type?: string;
+  dna_scores?: any;
   quiz_completion_date?: string;
   lead_source?: string;
 }
@@ -13,6 +19,9 @@ export interface Lead extends LeadData {
   id: string;
   hubspot_synced: boolean;
   hubspot_sync_error?: string;
+  hubspot_contact_id?: string;
+  email_sent: boolean;
+  email_error?: string;
   created_at: string;
   updated_at: string;
 }
@@ -29,11 +38,18 @@ export class LeadsService {
         .from('leads')
         .insert({
           email: leadData.email,
+          company: leadData.company,
+          role: leadData.role,
+          team_size: leadData.team_size,
           quiz_score: leadData.quiz_score,
           user_type: leadData.user_type,
+          dominant_type: leadData.dominant_type,
+          secondary_type: leadData.secondary_type,
+          dna_scores: leadData.dna_scores,
           quiz_completion_date: leadData.quiz_completion_date,
           lead_source: leadData.lead_source,
-          hubspot_synced: false
+          hubspot_synced: false,
+          email_sent: false
         })
         .select()
         .single();
@@ -46,17 +62,30 @@ export class LeadsService {
       // Now attempt HubSpot sync
       let hubspotSynced = false;
       let hubspotError: string | undefined;
+      let hubspotContactId: string | undefined;
 
       try {
-        const hubspotData: HubSpotLeadData = {
+        const hubspotContactData: HubSpotContact = {
           email: leadData.email,
+          company: leadData.company,
+          role: leadData.role,
+          team_size: leadData.team_size,
           quiz_score: leadData.quiz_score,
           user_type: leadData.user_type,
+          dominant_type: leadData.dominant_type,
+          secondary_type: leadData.secondary_type,
+          dna_scores: leadData.dna_scores,
           quiz_completion_date: leadData.quiz_completion_date,
           lead_source: leadData.lead_source
         };
 
-        hubspotSynced = await hubspotService.submitLead(hubspotData);
+        const result = await hubspotPrivateAppService.createOrUpdateContact(hubspotContactData);
+        hubspotSynced = result.success;
+        hubspotContactId = result.contactId;
+        
+        if (!result.success) {
+          hubspotError = result.error;
+        }
       } catch (error) {
         console.error('HubSpot sync failed:', error);
         hubspotError = error instanceof Error ? error.message : 'Unknown HubSpot error';
@@ -67,7 +96,8 @@ export class LeadsService {
         .from('leads')
         .update({
           hubspot_synced: hubspotSynced,
-          hubspot_sync_error: hubspotError
+          hubspot_sync_error: hubspotError,
+          hubspot_contact_id: hubspotContactId
         })
         .eq('id', lead.id)
         .select()
@@ -108,22 +138,30 @@ export class LeadsService {
         return false;
       }
 
-      const hubspotData: HubSpotLeadData = {
+      const hubspotContactData: HubSpotContact = {
         email: lead.email,
+        company: lead.company,
+        role: lead.role,
+        team_size: lead.team_size,
         quiz_score: lead.quiz_score,
         user_type: lead.user_type,
+        dominant_type: lead.dominant_type,
+        secondary_type: lead.secondary_type,
+        dna_scores: lead.dna_scores,
         quiz_completion_date: lead.quiz_completion_date,
         lead_source: lead.lead_source
       };
 
-      const success = await hubspotService.submitLead(hubspotData);
+      const result = await hubspotPrivateAppService.createOrUpdateContact(hubspotContactData);
+      const success = result.success;
 
       // Update sync status
       await supabase
         .from('leads')
         .update({
           hubspot_synced: success,
-          hubspot_sync_error: success ? null : 'Retry failed'
+          hubspot_sync_error: success ? null : (result.error || 'Retry failed'),
+          hubspot_contact_id: result.contactId
         })
         .eq('id', leadId);
 
