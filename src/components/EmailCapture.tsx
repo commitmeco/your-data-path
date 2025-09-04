@@ -91,24 +91,31 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
               <CMCDBrandMark />
             </div>
 
-            {/* Enhanced Brain Visual */}
+            {/* Enhanced Brain Visual with new design */}
             <div className="mb-8">
               <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="relative group">
-                  {/* Main brain container with enhanced styling */}
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-elegant relative overflow-hidden">
-                    {/* Animated background glow */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse rounded-full blur-sm"></div>
+                  {/* Redesigned sophisticated brain container */}
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary via-accent/80 to-primary/60 shadow-elegant relative overflow-hidden border border-primary/20">
+                    {/* Animated neural network background */}
+                    <div className="absolute inset-0 opacity-30">
+                      <div className="absolute top-2 left-2 w-1 h-1 rounded-full bg-primary-foreground animate-pulse"></div>
+                      <div className="absolute top-3 right-3 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                      <div className="absolute bottom-3 left-3 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '1s' }}></div>
+                      <div className="absolute bottom-2 right-2 w-1 h-1 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '2s' }}></div>
+                    </div>
                     <div className="relative z-10 w-full h-full flex items-center justify-center">
-                      <Brain className="h-8 w-8 text-primary-foreground drop-shadow-sm" />
+                      <Brain className="h-8 w-8 text-primary-foreground drop-shadow-lg" />
                     </div>
                   </div>
-                  {/* Enhanced sparkles effect */}
-                  <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-accent shadow-glow flex items-center justify-center animate-pulse">
+                  {/* Enhanced floating elements */}
+                  <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-br from-accent to-accent/80 shadow-glow flex items-center justify-center animate-bounce">
                     <Sparkles className="h-3 w-3 text-accent-foreground" />
                   </div>
                   {/* Additional floating elements */}
-                  <div className="absolute -bottom-1 -left-1 w-3 h-3 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '1s' }} />
+                  <div className="absolute -bottom-1 -left-1 w-3 h-3 rounded-full bg-primary/60 animate-pulse" style={{ animationDelay: '1s' }} />
+                  <div className="absolute top-1/4 -left-2 w-1 h-1 rounded-full bg-accent/60 animate-bounce" style={{ animationDelay: '2.5s' }} />
                 </div>
                 <div className="text-center">
                   <h1 className="text-4xl font-space-grotesk font-bold text-foreground">

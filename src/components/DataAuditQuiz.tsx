@@ -253,23 +253,33 @@ export const DataAuditQuiz = () => {
               </div>
               <div className="flex items-center justify-center gap-4 mb-6">
                 <div className="relative group">
-                  {/* Enhanced brain container */}
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-elegant relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse rounded-full blur-sm"></div>
+                  {/* Redesigned sophisticated brain container */}
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary via-accent/80 to-primary/60 shadow-elegant relative overflow-hidden border border-primary/20">
+                    {/* Animated neural network background */}
+                    <div className="absolute inset-0 opacity-30">
+                      <div className="absolute top-1 left-1 w-1 h-1 rounded-full bg-primary-foreground animate-pulse"></div>
+                      <div className="absolute top-2 right-2 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                      <div className="absolute bottom-2 left-2 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '1s' }}></div>
+                      <div className="absolute bottom-1 right-1 w-1 h-1 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                    </div>
                     <div className="relative z-10 w-full h-full flex items-center justify-center">
-                      <Brain className="h-6 w-6 text-primary-foreground drop-shadow-sm animate-pulse" />
+                      <Brain className="h-6 w-6 text-primary-foreground drop-shadow-lg" />
                     </div>
                   </div>
-                  <div className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-accent shadow-glow animate-pulse" style={{ animationDelay: '0.5s' }} />
+                  {/* Enhanced floating elements */}
+                  <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gradient-to-br from-accent to-accent/80 shadow-glow flex items-center justify-center animate-bounce">
+                    <Sparkles className="h-2 w-2 text-accent-foreground" />
+                  </div>
+                  <div className="absolute -bottom-0.5 -left-0.5 w-2 h-2 rounded-full bg-primary/70 animate-pulse" style={{ animationDelay: '2s' }} />
                 </div>
-                <div className="text-left">
+                <div className="text-center">
                   <h1 className="text-4xl font-space-grotesk font-bold text-foreground mb-2 leading-tight">
                     YOUR DATA HAS A BRAIN
                   </h1>
                   <p className="text-primary font-medium font-inter">We decode human behavior</p>
                 </div>
               </div>
-              <p className="text-muted-foreground text-lg font-inter max-w-lg mx-auto">
+              <p className="text-muted-foreground text-lg font-inter max-w-lg mx-auto text-center">
                 Let's see what your behavioral data is telling you about your audience engagement.
               </p>
             </div>
@@ -349,20 +359,26 @@ export const DataAuditQuiz = () => {
               </div>
               <div className="flex items-center justify-center gap-4 mb-4">
                 <div className="relative group">
-                  {/* Enhanced brain container */}
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent shadow-elegant relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse rounded-full blur-sm"></div>
+                  {/* Redesigned sophisticated brain container */}
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary via-accent/80 to-primary/60 shadow-elegant relative overflow-hidden border border-primary/20">
+                    {/* Animated neural network background */}
+                    <div className="absolute inset-0 opacity-30">
+                      <div className="absolute top-0.5 left-0.5 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse"></div>
+                      <div className="absolute top-1 right-1 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                      <div className="absolute bottom-1 left-1 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '1s' }}></div>
+                      <div className="absolute bottom-0.5 right-0.5 w-0.5 h-0.5 rounded-full bg-primary-foreground animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+                    </div>
                     <div className="relative z-10 w-full h-full flex items-center justify-center">
-                      <Brain className="h-5 w-5 text-primary-foreground drop-shadow-sm animate-pulse" />
+                      <Brain className="h-5 w-5 text-primary-foreground drop-shadow-lg" />
                     </div>
                   </div>
-                  <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-accent shadow-glow animate-pulse" style={{ animationDelay: '0.5s' }} />
+                  <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-gradient-to-br from-accent to-accent/80 shadow-glow animate-bounce" />
                 </div>
                 <h1 className="text-3xl font-space-grotesk font-bold text-foreground">
                   YOUR DATA HAS A BRAIN
                 </h1>
               </div>
-              <p className="text-muted-foreground font-inter">
+              <p className="text-muted-foreground font-inter text-center">
                 We decode human behavior. Let's see what your data is telling you.
               </p>
             </div>

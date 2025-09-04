@@ -38,9 +38,16 @@ export const QuestionCard = ({ question, onAnswer, onPrevious, selectedValue }: 
       {/* Enhanced Question Header */}
       <Card className="p-6 border border-primary/20 bg-gradient-to-r from-primary/5 to-accent/5">
         <div className="flex items-start gap-4">
-          {/* Enhanced brain icon container */}
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 via-primary/10 to-accent/10 border border-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary/40 to-accent/30 flex items-center justify-center">
+          {/* Redesigned sophisticated brain icon container */}
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/20 via-accent/10 to-primary/15 border border-primary/20 flex items-center justify-center flex-shrink-0 shadow-sm relative overflow-hidden">
+            {/* Neural network dots */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-1 left-1 w-0.5 h-0.5 rounded-full bg-primary animate-pulse"></div>
+              <div className="absolute top-2 right-2 w-0.5 h-0.5 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+              <div className="absolute bottom-2 left-2 w-0.5 h-0.5 rounded-full bg-primary animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute bottom-1 right-1 w-0.5 h-0.5 rounded-full bg-primary animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+            </div>
+            <div className="relative z-10 w-8 h-8 rounded-lg bg-gradient-to-br from-primary/30 to-accent/20 flex items-center justify-center">
               <Brain className="h-5 w-5 text-primary drop-shadow-sm" />
             </div>
           </div>
