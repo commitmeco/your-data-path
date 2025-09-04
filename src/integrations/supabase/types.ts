@@ -16,38 +16,65 @@ export type Database = {
     Tables: {
       leads: {
         Row: {
+          company: string | null
           created_at: string
+          dna_scores: Json | null
+          dominant_type: string | null
           email: string
+          email_error: string | null
+          email_sent: boolean | null
+          hubspot_contact_id: string | null
           hubspot_sync_error: string | null
           hubspot_synced: boolean | null
           id: string
           lead_source: string | null
           quiz_completion_date: string | null
           quiz_score: number | null
+          role: string | null
+          secondary_type: string | null
+          team_size: string | null
           updated_at: string
           user_type: string | null
         }
         Insert: {
+          company?: string | null
           created_at?: string
+          dna_scores?: Json | null
+          dominant_type?: string | null
           email: string
+          email_error?: string | null
+          email_sent?: boolean | null
+          hubspot_contact_id?: string | null
           hubspot_sync_error?: string | null
           hubspot_synced?: boolean | null
           id?: string
           lead_source?: string | null
           quiz_completion_date?: string | null
           quiz_score?: number | null
+          role?: string | null
+          secondary_type?: string | null
+          team_size?: string | null
           updated_at?: string
           user_type?: string | null
         }
         Update: {
+          company?: string | null
           created_at?: string
+          dna_scores?: Json | null
+          dominant_type?: string | null
           email?: string
+          email_error?: string | null
+          email_sent?: boolean | null
+          hubspot_contact_id?: string | null
           hubspot_sync_error?: string | null
           hubspot_synced?: boolean | null
           id?: string
           lead_source?: string | null
           quiz_completion_date?: string | null
           quiz_score?: number | null
+          role?: string | null
+          secondary_type?: string | null
+          team_size?: string | null
           updated_at?: string
           user_type?: string | null
         }
