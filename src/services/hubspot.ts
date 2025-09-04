@@ -14,8 +14,8 @@ export interface HubSpotConfig {
 
 // Default configuration - update these with your HubSpot details
 const DEFAULT_CONFIG: HubSpotConfig = {
-  portalId: process.env.VITE_HUBSPOT_PORTAL_ID || '',
-  formId: process.env.VITE_HUBSPOT_FORM_ID || ''
+  portalId: import.meta.env.VITE_HUBSPOT_PORTAL_ID || '',
+  formId: import.meta.env.VITE_HUBSPOT_FORM_ID || ''
 };
 
 export class HubSpotService {
