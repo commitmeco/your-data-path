@@ -4,6 +4,9 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, Mail, Download, Brain, Sparkles } from "lucide-react";
 import { CMCDBrandMark } from "./CMCDLogo";
+import { HubSpotConfig } from "./HubSpotConfig";
+import { hubspotService, HubSpotLeadData } from "@/services/hubspot";
+import { useToast } from "@/hooks/use-toast";
 
 interface EmailCaptureProps {
   overallScore: number;
@@ -14,6 +17,7 @@ interface EmailCaptureProps {
 export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCaptureProps) => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const audienceTerm = userType === 'nonprofit' ? 'donors' : 'customers';
   const conversionTerm = userType === 'nonprofit' ? 'donations' : 'sales';
@@ -24,10 +28,44 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
 
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    onEmailSubmit(email);
+    try {
+      // Prepare lead data for HubSpot
+      const leadData: HubSpotLeadData = {
+        email: email.trim(),
+        quiz_score: Math.round(overallScore),
+        user_type: userType || 'unknown',
+        quiz_completion_date: new Date().toISOString(),
+        lead_source: 'CMCD Data Audit Quiz'
+      };
+
+      // Submit to HubSpot
+      const hubspotSuccess = await hubspotService.submitLead(leadData);
+      
+      if (hubspotSuccess) {
+        toast({
+          title: "Success!",
+          description: "Your data brain analysis is ready. We've also added you to our insights mailing list.",
+        });
+      } else {
+        toast({
+          title: "Analysis Ready",
+          description: "Your behavioral insights are ready to view!",
+        });
+      }
+
+      // Proceed to results regardless of HubSpot success
+      onEmailSubmit(email);
+      
+    } catch (error) {
+      console.error('Error in email submission:', error);
+      toast({
+        title: "Analysis Ready",
+        description: "Your behavioral insights are ready to view!",
+      });
+      onEmailSubmit(email);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -171,6 +209,9 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
             </div>
           </div>
         </Card>
+        
+        {/* HubSpot Configuration Component */}
+        <HubSpotConfig />
       </div>
     </div>
   );
