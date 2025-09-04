@@ -15,6 +15,8 @@ interface EmailCaptureProps {
 }
 
 export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCaptureProps) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -31,6 +33,8 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
     try {
       // Prepare lead data
       const leadData = {
+        first_name: firstName.trim() || undefined,
+        last_name: lastName.trim() || undefined,
         email: email.trim(),
         quiz_score: Math.round(overallScore),
         user_type: userType || 'unknown',
@@ -152,7 +156,23 @@ export const EmailCapture = ({ overallScore, onEmailSubmit, userType }: EmailCap
 
             {/* Enhanced Email Form */}
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="max-w-md mx-auto">
+              <div className="max-w-md mx-auto space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <Input
+                    type="text"
+                    placeholder="First name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="text-center font-inter bg-input/50 border-primary/30 focus:border-primary focus:ring-primary/20"
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Last name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="text-center font-inter bg-input/50 border-primary/30 focus:border-primary focus:ring-primary/20"
+                  />
+                </div>
                 <Input
                   type="email"
                   placeholder="Enter your email to decode your behavioral data"
